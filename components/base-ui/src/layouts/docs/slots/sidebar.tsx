@@ -488,7 +488,7 @@ function getItemOffset(depth: number) {
   return `calc(${2 + 3 * depth} * var(--spacing))`;
 }
 
-const SidebarPageTree = createPageTreeRenderer({
+export const SidebarPageTree = createPageTreeRenderer({
   SidebarFolder,
   SidebarFolderContent,
   SidebarFolderLink,
@@ -497,7 +497,7 @@ const SidebarPageTree = createPageTreeRenderer({
   SidebarSeparator,
 });
 
-const SidebarLinkItem = createLinkItemRenderer({
+export const SidebarLinkItem = createLinkItemRenderer({
   SidebarFolder,
   SidebarFolderContent,
   SidebarFolderLink,

@@ -4,12 +4,17 @@ import type { BaseLayoutProps, NavOptions } from '@base-ui/layouts/shared';
 import { type ComponentProps, createContext, type FC, use } from 'react';
 import { baseSlots, useLinkItems, type BaseSlots, type BaseSlotsProps } from '@base-ui/layouts/shared';
 import type { LinkItemType } from '@base-ui/layouts/shared';
+import { SidebarProvider } from '@base-ui/components/sidebar/base';
+import { TreeContextProvider } from '@base-ui/contexts/tree';
+import type * as PageTree from 'fumadocs-core/page-tree';
 import { Container } from './slots/container';
 import { Header } from './slots/header';
+import { MobileNavDrawer } from './slots/mobile-nav';
 
 export interface HomeLayoutProps extends BaseLayoutProps, ComponentProps<'main'> {
   nav?: Nav;
   slots?: Partial<HomeSlots>;
+  tree: PageTree.Root;
 }
 
 interface Nav extends NavOptions {
@@ -49,6 +54,7 @@ export function HomeLayout(props: HomeLayoutProps) {
     nav: { enabled: navEnabled = true } = {},
     slots: defaultSlots,
     children,
+    tree,
     i18n: _i18n,
     githubUrl: _githubUrl,
     links: _links,
@@ -72,10 +78,15 @@ export function HomeLayout(props: HomeLayoutProps) {
         ...linkItems,
       }}
     >
-      <slots.container {...rest}>
-        {navEnabled && <slots.header />}
-        {children}
-      </slots.container>
+      <TreeContextProvider tree={tree}>
+        <SidebarProvider>
+          <slots.container {...rest}>
+            {navEnabled && <slots.header />}
+            {navEnabled && <MobileNavDrawer />}
+            {children}
+          </slots.container>
+        </SidebarProvider>
+      </TreeContextProvider>
     </LayoutContext>
   );
 }
