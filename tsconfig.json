@@ -15,7 +15,9 @@
     "jsx": "react-jsx",
     "incremental": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@base-ui/*": ["./components/base-ui/src/*"],
+      "fumadocs-ui/*": ["./components/base-ui/src/*"]
     },
     "plugins": [
       {
@@ -30,5 +32,11 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "components/base-ui/node_modules",
+    "components/base-ui/registry",
+    "components/base-ui/tsdown.config.ts",
+    "components/base-ui/src/og/takumi.tsx"
+  ]
 }

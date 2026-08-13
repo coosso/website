@@ -1,5 +1,6 @@
 # deps
 /node_modules
+components/base-ui/node_modules
 
 # generated content
 .source
