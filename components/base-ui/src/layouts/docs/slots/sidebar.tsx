@@ -21,16 +21,16 @@ import Link from 'fumadocs-core/link';
 import { useTreePath } from '@base-ui/contexts/tree';
 
 const itemVariants = cva(
-  'relative flex flex-row items-center gap-2 rounded-lg p-2 text-start text-fd-muted-foreground wrap-anywhere [&_svg]:size-4 [&_svg]:shrink-0',
+  'relative flex flex-row items-center gap-1.5 rounded-xs p-2 text-xs text-start text-fd-muted-foreground wrap-anywhere [&_svg]:size-3.5 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
-        link: 'transition-colors hover:bg-fd-accent/50 hover:text-fd-accent-foreground/80 hover:transition-none data-[active=true]:bg-fd-primary/10 data-[active=true]:text-fd-primary data-[active=true]:hover:transition-colors',
+        link: 'transition-colors hover:bg-fd-accent/30 text-fd-accent-foreground/80 hover:transition-none data-[active=true]:bg-fd-primary/5 data-[active=true]:text-fd-primary data-[active=true]:hover:transition-colors',
         button:
-          'transition-colors hover:bg-fd-accent/50 hover:text-fd-accent-foreground/80 hover:transition-none',
+          'transition-colors hover:bg-fd-accent/50 hover:transition-none',
       },
       highlight: {
-        true: "data-[active=true]:before:content-[''] data-[active=true]:before:bg-fd-primary data-[active=true]:before:absolute data-[active=true]:before:w-px data-[active=true]:before:inset-y-2.5 data-[active=true]:before:inset-s-2.5",
+        true: "data-[active=true]:before:content-[''] data-[active=true]:before:bg-fd-primary/90 data-[active=true]:before:absolute data-[active=true]:before:w-px data-[active=true]:before:inset-y-2.5 data-[active=true]:before:inset-s-2.5",
       },
     },
   },
@@ -216,7 +216,7 @@ function SidebarContent({ ref: refProp, className, children, ...props }: Compone
               data-collapsed={collapsed}
               data-hovered={collapsed && hovered}
               className={cn(
-                'absolute flex flex-col w-full inset-s-0 inset-y-0 items-end bg-fd-card text-sm border-e duration-250 *:w-(--fd-sidebar-width)',
+                'absolute flex flex-col w-full inset-s-0 inset-y-0 items-end bg-fd-background text-sm duration-250 *:w-(--fd-sidebar-width)',
                 collapsed && [
                   'inset-y-2 rounded-xl transition-transform border w-(--fd-sidebar-width)',
                   hovered

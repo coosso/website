@@ -185,6 +185,17 @@ export interface MainItemType extends WithHref, Filterable {
   description?: ReactNode;
 }
 
+/**
+ * A navigation link that reveals square brackets around its text on hover,
+ * replicating the accent "code" hover effect.
+ */
+export interface BracketItemType extends WithHref, Filterable {
+  type: 'bracket';
+  icon?: ReactNode;
+  text: ReactNode;
+  description?: ReactNode;
+}
+
 export interface IconItemType extends WithHref, Filterable {
   type: 'icon';
   /**
@@ -243,6 +254,7 @@ export interface CustomItemType extends Filterable {
 
 export type LinkItemType =
   | MainItemType
+  | BracketItemType
   | IconItemType
   | ButtonItemType
   | MenuItemType

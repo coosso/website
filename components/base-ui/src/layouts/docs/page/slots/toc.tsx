@@ -54,7 +54,7 @@ export function TOC({ container, header, footer, style = 'normal', list }: TOCPr
   const { TOCItems, TOCEmpty, TOCItem } = style === 'clerk' ? TocClerk : TocDefault;
 
   if (items.length === 0 && !header && !footer) {
-    return <div id="nd-toc-placeholder" className="hidden xl:layout:[--fd-toc-width:268px]" />;
+    return <div id="nd-toc-placeholder" className="hidden lg:layout:[--fd-toc-width:268px]" />;
   }
 
   return (
@@ -62,7 +62,7 @@ export function TOC({ container, header, footer, style = 'normal', list }: TOCPr
       id="nd-toc"
       {...container}
       className={cn(
-        'sticky top-(--fd-docs-row-1) h-[calc(var(--fd-docs-height)-var(--fd-docs-row-1))] flex flex-col [grid-area:toc] w-(--fd-toc-width) pt-12 pe-4 pb-2 xl:layout:[--fd-toc-width:268px] max-xl:hidden',
+        'sticky top-(--fd-docs-row-1) h-[calc(var(--fd-docs-height)-var(--fd-docs-row-1))] flex flex-col [grid-area:toc] w-(--fd-toc-width) pt-12 pe-4 pb-2 lg:layout:[--fd-toc-width:268px] max-lg:hidden',
         container?.className,
       )}
     >
@@ -166,7 +166,7 @@ export function TOCPopover({
         data-toc-popover=""
         {...container}
         className={cn(
-          'sticky top-(--fd-docs-row-2) z-10 [grid-area:toc-popover] h-(--fd-toc-popover-height) xl:hidden max-xl:layout:[--fd-toc-popover-height:--spacing(10)]',
+          'sticky top-(--fd-docs-row-2) z-10 [grid-area:toc-popover] h-(--fd-toc-popover-height) lg:hidden max-lg:layout:[--fd-toc-popover-height:--spacing(10)]',
           container?.className,
         )}
       >

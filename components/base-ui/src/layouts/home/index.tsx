@@ -83,7 +83,9 @@ export function HomeLayout(props: HomeLayoutProps) {
           <slots.container {...rest}>
             {navEnabled && <slots.header />}
             {navEnabled && <MobileNavDrawer />}
-            {children}
+            <div className="mx-auto flex w-full max-w-(--fd-layout-width) flex-1 flex-col border-x border-dashed">
+              {children}
+            </div>
           </slots.container>
         </SidebarProvider>
       </TreeContextProvider>

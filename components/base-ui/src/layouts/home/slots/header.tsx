@@ -31,6 +31,12 @@ export const navItemVariants = cva('[&_svg]:size-4', {
   },
 });
 
+export const bracketLinkClassName =
+  'group flex items-center gap-1 font-medium text-fd-foreground/80 text-sm transition-colors hover:text-fd-foreground data-[active=true]:text-fd-foreground';
+
+const bracketSpanClassName =
+  'text-fd-foreground/30 opacity-0 transition-all duration-100 group-hover:text-cossistant-orange group-hover:opacity-100';
+
 export function Header(props: ComponentProps<'header'>) {
   const {
     navItems,
@@ -48,10 +54,10 @@ export function Header(props: ComponentProps<'header'>) {
       // defaults to <ul>, but its children (nav title, link groups, controls) are not <li> —
       // render a <div> for valid list semantics, like the Radix UI variant does with `asChild`
       render={<div />}
-      className="flex h-14 w-full mx-auto max-w-(--fd-layout-width) items-center px-4"
+      className="flex h-14 w-full mx-auto max-w-(--fd-layout-width) items-center border-x border-dashed px-4"
     >
       {slots.navTitle && (
-        <slots.navTitle className="inline-flex items-center gap-2.5 font-semibold" />
+        <slots.navTitle className="inline-flex flex-1 items-center gap-2.5 font-semibold" />
       )}
       {nav?.children}
       <ul className="flex flex-row items-center gap-2 px-6 max-md:hidden">
@@ -110,7 +116,7 @@ export function Header(props: ComponentProps<'header'>) {
       <Primitive.Root
         className={(s) =>
           cn(
-            'backdrop-blur-lg border-b transition-[box-shadow,background-color,border-radius]',
+            'backdrop-blur-lg border-b border-dashed transition-[box-shadow,background-color,border-radius]',
             (!isNavTransparent || s.open) && 'bg-fd-background/80',
           )
         }
@@ -219,6 +225,22 @@ function NavigationMenuLinkItem({
         >
           {children}
         </Primitive.Content>
+      </Primitive.Item>
+    );
+  }
+
+  if (item.type === 'bracket') {
+    return (
+      <Primitive.Item className={cn('list-none', className)} {...props}>
+        <Primitive.Link
+          render={
+            <LinkItem item={item} className={bracketLinkClassName}>
+              <span className={bracketSpanClassName}>[</span>
+              {item.text}
+              <span className={bracketSpanClassName}>]</span>
+            </LinkItem>
+          }
+        />
       </Primitive.Item>
     );
   }

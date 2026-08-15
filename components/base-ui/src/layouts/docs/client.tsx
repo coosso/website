@@ -76,7 +76,7 @@ export function LayoutBody(
   },
 ) {
   const {
-    nav: { enabled: navEnabled = true, transparentMode: navTransparentMode = 'none' } = {},
+    nav: { transparentMode: navTransparentMode = 'none' } = {},
     sidebar: { enabled: sidebarEnabled = true, defaultOpenLevel, prefetch, ...sidebarProps } = {},
     slots: defaultSlots,
     tabs,
@@ -117,7 +117,6 @@ export function LayoutBody(
       >
         <slots.sidebar.provider defaultOpenLevel={defaultOpenLevel} prefetch={prefetch}>
           <slots.container {...containerProps}>
-            {navEnabled && <slots.header />}
             {sidebarEnabled && <slots.sidebar.root {...sidebarProps} />}
             {tabMode === 'top' && tabs.length > 0 && (
               <LayoutTabs

@@ -3,7 +3,10 @@
 @import '../components/base-ui/css/preset.css';
 
 html {
-  scrollbar-gutter: stable;
+  /* Overlay scrollbar: keep the vertical scrollbar from reserving horizontal
+     layout space, so the page keeps its full width regardless of overflow. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-fd-border, currentColor) transparent;
 }
 
 html > body[data-scroll-locked] {
