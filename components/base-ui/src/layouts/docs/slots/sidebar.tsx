@@ -1,7 +1,7 @@
 'use client';
 import * as Base from '@base-ui/components/sidebar/base';
 import { cn } from '@base-ui/utils/cn';
-import { type ComponentProps, type ReactNode, useMemo, useRef, useState } from 'react';
+import { type ComponentProps, type ReactNode, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { cva } from 'class-variance-authority';
 import {
   createPageTreeRenderer,
@@ -9,7 +9,6 @@ import {
 } from '@base-ui/components/sidebar/page-tree';
 import { createLinkItemRenderer } from '@base-ui/components/sidebar/link-item';
 import { buttonVariants } from '@base-ui/components/ui/button';
-import { SearchTrigger } from '@base-ui/layouts/shared/slots/search-trigger';
 import { Check, ChevronDown, ChevronsUpDown, Languages, SidebarIcon } from 'lucide-react';
 import { mergeRefs } from '@base-ui/utils/merge-refs';
 import { useDocsLayout } from '../client';
@@ -63,6 +62,20 @@ export function Sidebar({ footer, banner, collapsible = true, components, ...res
     slots,
     props: { tabs, nav, tabMode },
   } = useDocsLayout();
+  const { collapsed } = useSidebar();
+  const [footerVisible, setFooterVisible] = useState(true);
+  const isFirstCollapse = useRef(true);
+
+  useLayoutEffect(() => {
+    if (isFirstCollapse.current) {
+      isFirstCollapse.current = false;
+      return;
+    }
+    setFooterVisible(false);
+    const timeout = setTimeout(() => setFooterVisible(true), 200);
+    return () => clearTimeout(timeout);
+  }, [collapsed]);
+
   const iconLinks = menuItems.filter((item) => item.type === 'icon');
   const viewport = (
     <Base.SidebarViewport>
@@ -80,34 +93,21 @@ export function Sidebar({ footer, banner, collapsible = true, components, ...res
   return (
     <>
       <SidebarContent {...rest}>
-        <div className="flex flex-col gap-3 p-4 pb-2">
-          <div className="flex">
-            {slots.navTitle && (
-              <slots.navTitle className="inline-flex text-[0.9375rem] items-center gap-2.5 font-medium me-auto" />
+        
+        {!collapsed && viewport}
+        {(slots.languageSelect || iconLinks.length > 0 || slots.themeSwitch || footer || collapsible) && (
+          <div
+            className={cn(
+              'flex flex-col',
+              collapsed ? 'mt-auto p-4' : 'p-4 pt-2',
+              footerVisible ? 'opacity-100' : 'opacity-0',
             )}
-            {nav?.children}
-            {collapsible && (
-              <SidebarCollapseTrigger
-                className={cn(
-                  buttonVariants({
-                    color: 'ghost',
-                    size: 'icon-sm',
-                    className: 'mb-auto text-fd-muted-foreground',
-                  }),
-                )}
-              >
-                <SidebarIcon />
-              </SidebarCollapseTrigger>
-            )}
-          </div>
-          {slots.searchTrigger && <slots.searchTrigger.full hideIfDisabled />}
-          {tabs.length > 0 && tabMode === 'auto' && <SidebarTabsDropdown tabs={tabs} />}
-          {banner}
-        </div>
-        {viewport}
-        {(slots.languageSelect || iconLinks.length > 0 || slots.themeSwitch || footer) && (
-          <div className="flex flex-col p-4 pt-2">
-            {slots.languageSelect && (
+            style={{
+              transitionProperty: 'opacity',
+              transitionDuration: footerVisible ? '300ms' : '0ms',
+            }}
+          >
+            {!collapsed && slots.languageSelect && (
               <slots.languageSelect.root
                 variant="secondary"
                 className="text-fd-muted-foreground text-start justify-start bg-fd-secondary/50 mb-2"
@@ -117,7 +117,12 @@ export function Sidebar({ footer, banner, collapsible = true, components, ...res
                 <ChevronDown className="ms-auto size-3.5" />
               </slots.languageSelect.root>
             )}
-            <div className="flex text-fd-muted-foreground items-center border bg-fd-secondary/50 p-0.5 pe-0 rounded-lg empty:hidden">
+            <div
+              className={cn(
+                'flex text-fd-muted-foreground items-center p-0.5 pt-3 empty:hidden border-t border-fd-border',
+                collapsed && 'flex-col gap-1 self-center',
+              )}
+            >
               {iconLinks.map((item, i) => (
                 <LinkItem
                   key={i}
@@ -128,11 +133,22 @@ export function Sidebar({ footer, banner, collapsible = true, components, ...res
                   {item.icon}
                 </LinkItem>
               ))}
-              {slots.themeSwitch && (
-                <slots.themeSwitch className="px-1 py-0 border-y-0 border-e-0 rounded-none ms-auto *:rounded-md" />
+              {slots.themeSwitch && <slots.themeSwitch className="py-0" />}
+              {collapsible && (
+                <SidebarCollapseTrigger
+                  className={cn(
+                    buttonVariants({
+                      color: 'ghost',
+                      size: 'icon-sm',
+                      className: cn('group', !collapsed && 'ms-auto'),
+                    }),
+                  )}
+                >
+                  <SidebarIcon className="transition-transform group-data-[collapsed=true]:rotate-180" />
+                </SidebarCollapseTrigger>
               )}
             </div>
-            {footer}
+            {!collapsed && footer}
           </div>
         )}
       </SidebarContent>
@@ -203,58 +219,24 @@ function SidebarContent({ ref: refProp, className, children, ...props }: Compone
 
   return (
     <Base.SidebarContent>
-      {({ collapsed, hovered, ref: asideRef, ...rest }) => (
-        <>
-          <div
-            data-sidebar-placeholder=""
-            className="sticky top-(--fd-docs-row-1) z-20 [grid-area:sidebar] pointer-events-none *:pointer-events-auto h-[calc(var(--fd-docs-height)-var(--fd-docs-row-1))] md:layout:[--fd-sidebar-width:268px] max-md:hidden"
-          >
-            {collapsed && <div className="absolute inset-s-0 inset-y-0 w-4" {...rest} />}
-            <aside
-              id="nd-sidebar"
-              ref={mergeRefs(ref, refProp, asideRef)}
-              data-collapsed={collapsed}
-              data-hovered={collapsed && hovered}
-              className={cn(
-                'absolute flex flex-col w-full inset-s-0 inset-y-0 items-end bg-fd-background text-sm duration-250 *:w-(--fd-sidebar-width)',
-                collapsed && [
-                  'inset-y-2 rounded-xl transition-transform border w-(--fd-sidebar-width)',
-                  hovered
-                    ? 'shadow-lg translate-x-2 rtl:-translate-x-2'
-                    : '-translate-x-(--fd-sidebar-width) rtl:translate-x-full',
-                ],
-                ref.current &&
-                  (ref.current.getAttribute('data-collapsed') === 'true') !== collapsed &&
-                  'transition-[width,inset-block,translate,background-color]',
-                className,
-              )}
-              {...props}
-              {...rest}
-            >
-              {children}
-            </aside>
-          </div>
-          <div
-            data-sidebar-panel=""
+      {({ collapsed, ref: asideRef }) => (
+        <div
+          data-sidebar-placeholder=""
+          className="sticky top-(--fd-docs-row-1) z-20 [grid-area:sidebar] pointer-events-none *:pointer-events-auto h-[calc(var(--fd-docs-height)-var(--fd-docs-row-1))] md:layout:[--fd-sidebar-width:228px] md:layout:[--fd-sidebar-collapsed-width:64px] max-md:hidden"
+        >
+          <aside
+            id="nd-sidebar"
+            ref={mergeRefs(ref, refProp, asideRef)}
+            data-collapsed={collapsed}
             className={cn(
-              'fixed flex top-[calc(--spacing(4)+var(--fd-docs-row-3))] inset-s-4 shadow-lg transition-opacity rounded-xl p-0.5 border bg-fd-muted text-fd-muted-foreground z-10',
-              (!collapsed || hovered) && 'pointer-events-none opacity-0',
+              'absolute flex flex-col w-full inset-s-0 inset-y-0 items-end bg-fd-background text-sm duration-250 *:w-(--fd-sidebar-width) *:transition-[width] data-[collapsed=true]:*:w-(--fd-sidebar-collapsed-width)',
+              className,
             )}
+            {...props}
           >
-            <Base.SidebarCollapseTrigger
-              className={cn(
-                buttonVariants({
-                  color: 'ghost',
-                  size: 'icon-sm',
-                  className: 'rounded-lg',
-                }),
-              )}
-            >
-              <SidebarIcon />
-            </Base.SidebarCollapseTrigger>
-            <SearchTrigger className="rounded-lg" hideIfDisabled />
-          </div>
-        </>
+            {children}
+          </aside>
+        </div>
       )}
     </Base.SidebarContent>
   );

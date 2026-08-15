@@ -48,7 +48,7 @@ export function DocsPage({ full = false, toc = Empty, tableOfContent, children }
         <div
           data-fd-full={full}
           className={cn(
-            'flex flex-col gap-2 p-6 pb-16 min-w-0 [grid-area:main] md:pt-16 md:pb-8',
+            'flex flex-col gap-2 p-6 min-w-0 [grid-area:main] md:pb-8',
             full && 'layout:[--fd-main-width:1200px]',
           )}
         >

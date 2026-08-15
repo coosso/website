@@ -16,8 +16,6 @@ const itemVariants = cva('size-6.5 p-1.5 text-fd-muted-foreground', {
   },
 });
 
-const themes = [['light', Sun] as const, ['dark', Moon] as const, ['system', Airplay] as const];
-
 export interface ThemeSwitchProps extends ComponentProps<'div'> {
   mode?: 'light-dark' | 'light-dark-system';
 }
@@ -44,13 +42,11 @@ export function ThemeSwitch({ className, mode = 'light-dark', ...props }: ThemeS
     setMounted(true);
   }, []);
 
-  const container = cn(
-    'inline-flex items-center rounded-full border p-1 overflow-hidden *:rounded-full',
-    className,
-  );
+  const container = cn('inline-flex items-center rounded-full *:rounded-full', className);
 
   if (mode === 'light-dark') {
     const value = mounted ? resolvedTheme : null;
+    const Icon = value === 'dark' ? Moon : Sun;
 
     return (
       <button
@@ -59,17 +55,7 @@ export function ThemeSwitch({ className, mode = 'light-dark', ...props }: ThemeS
         onClick={() => handleThemeChange(value === 'light' ? 'dark' : 'light')}
         data-theme-toggle=""
       >
-        {themes.map(([key, Icon]) => {
-          if (key === 'system') return;
-
-          return (
-            <Icon
-              key={key}
-              fill="currentColor"
-              className={cn(itemVariants({ active: value === key }))}
-            />
-          );
-        })}
+        <Icon className={cn(itemVariants({ active: true }))} fill="currentColor" />
       </button>
     );
   }

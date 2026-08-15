@@ -23,11 +23,9 @@ import {
   type SidebarProviderProps,
   type SidebarDrawerProps,
 } from './slots/sidebar';
-import { Header, type HeaderProps } from './slots/header';
 import type { Drawer } from '@base-ui/react';
 
 export interface GlassSlots extends BaseSlots {
-  header: FC<HeaderProps>;
   sidebar: {
     main: FC<SidebarProps>;
     provider: FC<SidebarProviderProps>;
@@ -95,7 +93,6 @@ export function GlassLayout(props: GlassLayoutProps) {
 
   const slots: GlassSlots = {
     ...baseSlots,
-    header: defaultSlots.header ?? Header,
     sidebar: defaultSlots.sidebar ?? {
       drawer: SidebarDrawer,
       drawerHandle,
@@ -129,7 +126,6 @@ export function GlassLayout(props: GlassLayoutProps) {
           >
             <slots.sidebar.drawer />
             <slots.sidebar.main />
-            <slots.header />
             {children}
           </div>
         </TreeContextProvider>
