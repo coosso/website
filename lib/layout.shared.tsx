@@ -5,7 +5,13 @@ export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
       // JSX supported
-      title: appName,
+      title: (
+        <span className="inline-flex items-center gap-1">
+          <span className="text-cossistant-orange">[</span>
+          <span>{appName}</span>
+          <span className="text-cossistant-orange">]</span>
+        </span>
+      ),
     },
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
     links: [
