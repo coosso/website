@@ -3,7 +3,7 @@ import type { BlogPost } from '@/lib/blog';
 import { cn } from '@/lib/cn';
 import { formatDate } from './shared';
 
-/** 网格卡片：标题、摘要、作者与日期，悬停时出现橙色 `[→]`。 */
+/** 网格卡片：标题、摘要、作者与日期，悬停时出现橙色 `[→]`。标签可点击跳转标签页。 */
 export function PostCard({
   post,
   className,
@@ -12,21 +12,26 @@ export function PostCard({
   className?: string;
 }) {
   return (
-    <Link
-      href={post.url}
+    <div
       className={cn(
         'group relative flex flex-col gap-2 p-4 transition-colors hover:bg-neutral-50 md:p-5 dark:hover:bg-neutral-900/60',
         className,
       )}
     >
-      <div className="flex flex-wrap gap-1.5">
+      <Link
+        href={post.url}
+        aria-label={post.data.title}
+        className="absolute inset-0 z-0"
+      />
+      <div className="relative z-10 flex flex-wrap gap-1.5">
         {post.data.tags?.slice(0, 3).map((tag) => (
-          <span
+          <Link
             key={tag}
-            className="border border-dashed border-neutral-300 px-2 py-0.5 font-mono text-[11px] text-neutral-500 dark:border-neutral-700 dark:text-neutral-400"
+            href={`/blog/tag/${encodeURIComponent(tag)}`}
+            className="border border-dashed rounded-xs border-neutral-300 px-2 py-0.5 font-mono text-[11px] text-neutral-500 transition-colors hover:border-cossistant-orange hover:text-cossistant-orange dark:border-neutral-700 dark:text-neutral-400"
           >
             {tag}
-          </span>
+          </Link>
         ))}
       </div>
 
@@ -54,6 +59,6 @@ export function PostCard({
           </span>
         </span>
       </div>
-    </Link>
+    </div>
   );
 }

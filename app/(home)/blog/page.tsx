@@ -6,9 +6,14 @@ import { getBlogPosts, getBlogTags, type BlogPost } from '@/lib/blog';
 /** 精选文章：几何索引面板 + 内容，四角橙色直角括号。 */
 function HeroCard({ post }: { post: BlogPost }) {
   return (
-    <div className="relative border border-dashed border-neutral-300 dark:border-neutral-700">
+    <div className="group relative border border-dashed border-neutral-300 dark:border-neutral-700">
       <Corners />
-      <Link href={post.url} className="group grid md:grid-cols-5">
+      <Link
+        href={post.url}
+        aria-label={post.data.title}
+        className="absolute inset-0 z-0"
+      />
+      <div className="grid md:grid-cols-5">
         <div className="flex items-center justify-center border-b border-dashed border-neutral-300 py-5 md:col-span-2 md:border-b-0 md:border-r dark:border-neutral-700">
           <span className="font-mono text-3xl font-light text-cossistant-orange md:text-4xl">
             [<span className="px-2 text-neutral-300 dark:text-neutral-700">01</span>]
@@ -18,12 +23,13 @@ function HeroCard({ post }: { post: BlogPost }) {
           <div className="flex flex-wrap items-center gap-2">
             <Bracket>精选</Bracket>
             {post.data.tags?.map((tag) => (
-              <span
+              <Link
                 key={tag}
-                className="border border-dashed border-neutral-300 px-2 py-0.5 font-mono text-[11px] text-neutral-500 dark:border-neutral-700 dark:text-neutral-400"
+                href={`/blog/tag/${encodeURIComponent(tag)}`}
+                className="relative z-10 border border-dashed border-neutral-300 px-2 py-0.5 font-mono text-[11px] text-neutral-500 transition-colors hover:border-cossistant-orange hover:text-cossistant-orange dark:border-neutral-700 dark:text-neutral-400"
               >
                 {tag}
-              </span>
+              </Link>
             ))}
           </div>
           <h2 className="text-balance text-xl font-bold tracking-tight transition-colors group-hover:text-cossistant-orange md:text-3xl">
@@ -47,7 +53,7 @@ function HeroCard({ post }: { post: BlogPost }) {
             </span>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

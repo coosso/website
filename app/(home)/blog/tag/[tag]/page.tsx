@@ -45,7 +45,7 @@ export default async function Page({
       <section className="border-b border-dashed border-neutral-300 dark:border-neutral-700">
         <div className="px-6 py-4 md:px-12 lg:px-24">
           <div className="max-w-3xl">
-            <Bracket>标签</Bracket>
+            <Bracket>博客</Bracket>
             <p className="mt-2 max-w-lg text-neutral-600 dark:text-neutral-400">
               关于技术成长与 AI 工程实践的记录。业精于勤，行成于思。
             </p>
