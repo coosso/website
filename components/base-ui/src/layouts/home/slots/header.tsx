@@ -7,7 +7,7 @@ import { NavigationMenu as Primitive } from '@base-ui/react/navigation-menu';
 import { cn } from '@base-ui/utils/cn';
 import { type LinkItemType, LinkItem } from '@base-ui/layouts/shared';
 import { buttonVariants } from '@base-ui/components/ui/button';
-import { Languages, SidebarIcon } from 'lucide-react';
+import { Languages, Menu } from 'lucide-react';
 import { useIsScrollTop } from '@base-ui/utils/use-is-scroll-top';
 import { useHomeLayout } from '..';
 import { SidebarTrigger } from '@base-ui/components/sidebar/base';
@@ -71,14 +71,8 @@ export function Header(props: ComponentProps<'header'>) {
         {slots.searchTrigger && (
           <slots.searchTrigger.full
             hideIfDisabled
-            className="w-full rounded-full ps-2.5 max-w-[240px]"
+            className="w-full max-w-[240px]"
           />
-        )}
-        {slots.themeSwitch && <slots.themeSwitch />}
-        {slots.languageSelect && (
-          <slots.languageSelect.root>
-            <Languages className="size-5" />
-          </slots.languageSelect.root>
         )}
         <ul className="flex flex-row gap-2 items-center empty:hidden">
           {navItems.filter(isSecondary).map((item, i) => (
@@ -89,9 +83,14 @@ export function Header(props: ComponentProps<'header'>) {
             />
           ))}
         </ul>
+        {slots.languageSelect && (
+          <slots.languageSelect.root>
+            <Languages className="size-5" />
+          </slots.languageSelect.root>
+        )}
+        {slots.themeSwitch && <slots.themeSwitch />}
       </div>
-      <div className="flex flex-row items-center ms-auto -me-1.5 md:hidden">
-        {slots.searchTrigger && <slots.searchTrigger.sm hideIfDisabled className="p-2" />}
+      <div className="flex flex-row items-center ms-auto -me-1.5 gap-1 md:hidden">
         <SidebarTrigger
           className={cn(
             buttonVariants({
@@ -101,7 +100,7 @@ export function Header(props: ComponentProps<'header'>) {
             }),
           )}
         >
-          <SidebarIcon />
+          <Menu />
         </SidebarTrigger>
       </div>
     </Primitive.List>

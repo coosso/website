@@ -217,7 +217,15 @@ export function SearchDialog({
 }
 
 export function SearchDialogHeader(props: ComponentProps<'div'>) {
-  return <div {...props} className={cn('flex flex-row items-center gap-2 p-3', props.className)} />;
+  return (
+    <div
+      {...props}
+      className={cn(
+        'flex flex-row items-center gap-2 border-b border-dashed bg-fd-secondary/50 p-2',
+        props.className,
+      )}
+    />
+  );
 }
 
 export function SearchDialogInput(props: ComponentProps<'input'>) {
@@ -268,7 +276,12 @@ export function SearchDialogClose({
 }
 
 export function SearchDialogFooter(props: ComponentProps<'div'>) {
-  return <div {...props} className={cn('bg-fd-secondary/50 p-3 empty:hidden', props.className)} />;
+  return (
+    <div
+      {...props}
+      className={cn('border-t border-dashed bg-fd-secondary/50 p-3 empty:hidden', props.className)}
+    />
+  );
 }
 
 export function SearchDialogOverlay({
@@ -315,7 +328,7 @@ export function SearchDialogContent({
         }}
         className={(s) =>
           cn(
-            'fixed left-1/2 top-4 md:top-[calc(50%-250px)] z-50 w-[calc(100%-1rem)] max-w-screen-sm -translate-x-1/2 rounded-xl border bg-fd-popover text-fd-popover-foreground shadow-2xl overflow-hidden data-closed:animate-fd-dialog-out data-open:animate-fd-dialog-in focus-visible:outline-none',
+            'fixed left-1/2 top-4 md:top-[calc(50%-250px)] z-50 w-[calc(100%-1rem)] max-w-screen-sm -translate-x-1/2 rounded-sm border border-dashed bg-fd-popover text-fd-popover-foreground shadow-2xl overflow-hidden data-closed:animate-fd-dialog-out data-open:animate-fd-dialog-in focus-visible:outline-none',
             '*:border-b *:has-[+:last-child[data-empty=true]]:border-b-0 *:data-[empty=true]:border-b-0 *:last:border-b-0',
             typeof className === 'function' ? className(s) : className,
           )
@@ -506,8 +519,8 @@ export function SearchDialogListItem({
       )}
       aria-selected={active}
       className={cn(
-        'relative select-none shrink-0 px-2.5 py-2 text-start text-sm overflow-hidden rounded-lg',
-        active && 'bg-fd-accent text-fd-accent-foreground',
+        'relative select-none shrink-0 overflow-hidden rounded-sm border border-transparent px-2.5 py-2 text-start text-sm',
+        active && 'border-fd-primary/20 bg-fd-secondary/50 text-fd-accent-foreground',
         className,
       )}
       onPointerMove={() => setActive(item.id)}

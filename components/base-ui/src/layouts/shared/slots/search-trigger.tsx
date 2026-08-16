@@ -45,7 +45,7 @@ export interface FullSearchTriggerProps extends ComponentProps<'button'> {
 }
 
 export function FullSearchTrigger({ hideIfDisabled, ...props }: FullSearchTriggerProps) {
-  const { enabled, hotKey, dialogHandle } = useSearchContext();
+  const { enabled, dialogHandle } = useSearchContext();
   const t = useTranslations({ note: 'search trigger' });
   if (hideIfDisabled && !enabled) return null;
 
@@ -56,19 +56,12 @@ export function FullSearchTrigger({ hideIfDisabled, ...props }: FullSearchTrigge
       data-search-full=""
       {...props}
       className={cn(
-        'inline-flex items-center gap-2 rounded-lg border bg-fd-secondary/50 p-1.5 ps-2 text-sm text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground',
+        'inline-flex h-7 items-center justify-start gap-2 rounded-sm border border-dashed border-fd-border bg-fd-background px-2 text-xs font-normal text-fd-muted-foreground transition-colors hover:bg-fd-accent/30',
         props.className,
       )}
     >
       <Search className="size-4" />
-      {t('Search')}
-      <div className="ms-auto inline-flex gap-0.5">
-        {hotKey.map((k, i) => (
-          <kbd key={i} className="rounded-md border bg-fd-background px-1.5">
-            {k.display}
-          </kbd>
-        ))}
-      </div>
+      <span className="truncate">{t('Search')}...</span>
     </Dialog.Trigger>
   );
 }

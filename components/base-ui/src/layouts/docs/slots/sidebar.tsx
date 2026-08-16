@@ -20,7 +20,7 @@ import Link from 'fumadocs-core/link';
 import { useTreePath } from '@base-ui/contexts/tree';
 
 const itemVariants = cva(
-  'relative flex flex-row items-center gap-1.5 rounded-xs p-2 text-xs text-start text-fd-muted-foreground wrap-anywhere [&_svg]:size-3.5 [&_svg]:shrink-0',
+  'relative flex flex-row items-center gap-1.5 rounded-sm p-2 text-xs text-start text-fd-muted-foreground wrap-anywhere [&_svg]:size-3.5 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -119,10 +119,15 @@ export function Sidebar({ footer, banner, collapsible = true, components, ...res
             )}
             <div
               className={cn(
-                'flex text-fd-muted-foreground items-center p-0.5 pt-3 empty:hidden border-t border-fd-border',
+                'flex text-fd-muted-foreground items-center gap-1 p-0.5 pt-3 empty:hidden border-t border-fd-border',
                 collapsed && 'flex-col gap-1 self-center',
               )}
             >
+              {slots.searchTrigger && (collapsed ? (
+                <slots.searchTrigger.sm />
+              ) : (
+                <slots.searchTrigger.full className="min-w-0 flex-1" />
+              ))}
               {iconLinks.map((item, i) => (
                 <LinkItem
                   key={i}
