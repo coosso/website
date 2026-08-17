@@ -18,7 +18,7 @@ export function Bracket({
   className?: string;
 }) {
   return (
-    <span className={cn('font-mono text-xs font-medium', className)}>
+    <span className={cn('font-mono text-xs font-medium tracking-wider text-sm md:text-md', className)}>
       <span className="text-cossistant-orange">[</span> {children}{' '}
       <span className="text-cossistant-orange">]</span>
     </span>
