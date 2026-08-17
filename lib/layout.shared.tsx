@@ -27,6 +27,12 @@ export function baseOptions(): BaseLayoutProps {
         url: '/notes',
         on:'nav',
       },
+      {
+        type: 'bracket',
+        text: '关于',
+        url: '/about',
+        on:'nav',
+      },
 
     ],
   };
