@@ -1,0 +1,14 @@
+services:
+  coosso:
+    build: .
+    image: website:latest
+    container_name: website
+    restart: always
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s

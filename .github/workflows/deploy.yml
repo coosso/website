@@ -1,0 +1,53 @@
+name: Deploy to coosso.com
+
+on:
+  push:
+    branches:
+      - main
+  # 内容仓库(coosso/content) push 后通过 repository_dispatch 触发
+  repository_dispatch:
+    types:
+      - content-updated
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Site Repo
+        uses: actions/checkout@v7
+
+      - name: Checkout Content Repo
+        uses: actions/checkout@v7
+        with:
+          repository: coosso/content
+          token: ${{ secrets.PAT }}
+          path: content
+          ref: main
+
+      - name: Login to Aliyun Registry
+        run: |
+          echo "${{ secrets.REGISTRY_PASSWORD }}" | \
+          docker login --username=coosso \
+            --password-stdin ${{ vars.REGISTRY }}
+
+      - name: Build and Push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ vars.REGISTRY }}/coosso/site:latest
+
+      - name: Deploy on Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login --username=coosso --password-stdin ${{ vars.REGISTRY }}
+            cd /opt/docker-services
+            docker compose pull coosso-site
+            docker compose up -d --remove-orphans
+            docker image prune -f

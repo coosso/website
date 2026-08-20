@@ -13,7 +13,7 @@ import {
   useSidebar,
   type SidebarProps,
   type SidebarProviderProps,
-} from './slots/sidebar';
+} from './slots/sidebar.tsx';
 import type { DocsLayoutProps } from '.';
 import {
   baseSlots,
@@ -24,8 +24,8 @@ import {
   type BaseSlotsProps,
 } from '../shared';
 import { TreeContextProvider, useTreePath } from '@base-ui/contexts/tree';
-import { Header } from './slots/header';
-import { Container } from './slots/container';
+import { Header } from './slots/header.tsx';
+import { Container } from './slots/container.tsx';
 
 export interface DocsSlots extends BaseSlots {
   container: FC<ComponentProps<'div'>>;
@@ -141,7 +141,11 @@ function LayoutTabs({
   const pathname = usePathname();
   const path = useTreePath();
   const selected = useMemo(() => {
-    return tabs.findLast((option) => isLayoutTabActive(option, path, pathname));
+    for (let i = tabs.length - 1; i >= 0; i--) {
+      const option = tabs[i];
+      if (isLayoutTabActive(option, path, pathname)) return option;
+    }
+    return undefined;
   }, [tabs, path, pathname]);
 
   return (
