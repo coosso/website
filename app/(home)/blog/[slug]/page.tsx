@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/components/mdx';
 import { Bracket, TagPill, formatDate } from '@/components/blog/shared';
-import { blogSource, getBlogPosts, type BlogPost } from '@/lib/blog';
+import { blogSource, getBlogPost, getBlogPosts, type BlogPost } from '@/lib/source';
 
 export function generateStaticParams() {
   return blogSource.generateParams().map((params) => ({
@@ -17,7 +17,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogSource.getPage([slug]);
+  const post = getBlogPost(slug);
   if (!post) return {};
 
   return {
@@ -32,7 +32,7 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = blogSource.getPage([slug]);
+  const post = getBlogPost(slug);
   if (!post) notFound();
 
   const MDX = post.data.body;

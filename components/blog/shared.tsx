@@ -39,7 +39,8 @@ export function TagPill({
     'rounded-xs border border-dashed border-neutral-300 px-2.5 py-1 font-mono text-xs',
     'text-neutral-600 transition-colors hover:border-cossistant-orange hover:text-cossistant-orange',
     'dark:border-neutral-700 dark:text-neutral-300',
-    active && 'border-cossistant-orange text-cossistant-orange',
+    active &&
+      'border-cossistant-orange text-cossistant-orange dark:border-cossistant-orange dark:text-cossistant-orange',
   );
 
   if (href) {

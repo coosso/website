@@ -1,4 +1,4 @@
-import { getNotePage, getPageImageUrl, getPageMarkdownUrl, source } from '@/lib/source';
+import { getNotePage, getPageImageUrl, getPageMarkdownUrl, notesSource } from '@/lib/source';
 import {
   DocsBody,
   DocsDescription,
@@ -36,7 +36,7 @@ export default async function Page(props: PageProps<'/notes/[[...slug]]'>) {
         <MDX
           components={getMDXComponents({
             // this allows you to link to other pages with relative file paths
-            a: createRelativeLink(source, page),
+            a: createRelativeLink(notesSource, page),
           })}
         />
       </DocsBody>
@@ -45,7 +45,7 @@ export default async function Page(props: PageProps<'/notes/[[...slug]]'>) {
 }
 
 export async function generateStaticParams() {
-  return source.generateParams();
+  return notesSource.generateParams();
 }
 
 export async function generateMetadata(props: PageProps<'/notes/[[...slug]]'>): Promise<Metadata> {

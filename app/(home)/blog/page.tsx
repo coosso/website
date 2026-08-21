@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { PostGrid } from '@/components/blog/post-grid';
 import { Bracket, Corners, TagPill, formatDate } from '@/components/blog/shared';
-import { getBlogPosts, getBlogTags, type BlogPost } from '@/lib/blog';
+import { getBlogPosts, getBlogTags, type BlogPost } from '@/lib/source';
 
 /** 精选文章：几何索引面板 + 内容，四角橙色直角括号。 */
 function HeroCard({ post }: { post: BlogPost }) {

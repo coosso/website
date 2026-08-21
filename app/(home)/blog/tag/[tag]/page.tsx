@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { PostGrid } from '@/components/blog/post-grid';
 import { Bracket, TagPill } from '@/components/blog/shared';
-import { getBlogPosts, getBlogTags } from '@/lib/blog';
+import { getBlogPosts, getBlogTags } from '@/lib/source';
 
 /** 动态路由参数可能是 URL 编码后的值，这里安全地解码一次。 */
 function decodeTag(value: string): string {

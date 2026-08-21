@@ -1,4 +1,4 @@
-import type { BlogPost } from '@/lib/blog';
+import type { BlogPost } from '@/lib/source';
 import { cn } from '@/lib/cn';
 import { PostCard } from './post-card';
 
