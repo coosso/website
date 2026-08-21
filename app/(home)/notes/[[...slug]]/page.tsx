@@ -1,4 +1,4 @@
-import { getPageImageUrl, getPageMarkdownUrl, source } from '@/lib/source';
+import { getNotePage, getPageImageUrl, getPageMarkdownUrl, source } from '@/lib/source';
 import {
   DocsBody,
   DocsDescription,
@@ -15,7 +15,7 @@ import { gitConfig } from '@/lib/shared';
 
 export default async function Page(props: PageProps<'/notes/[[...slug]]'>) {
   const params = await props.params;
-  const page = source.getPage(params.slug);
+  const page = getNotePage(params.slug);
   if (!page) notFound();
 
   const MDX = page.data.body;
@@ -50,7 +50,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: PageProps<'/notes/[[...slug]]'>): Promise<Metadata> {
   const params = await props.params;
-  const page = source.getPage(params.slug);
+  const page = getNotePage(params.slug);
   if (!page) notFound();
 
   return {

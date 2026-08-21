@@ -6,7 +6,7 @@ const withMDX = createMDX();
 const config = {
   reactStrictMode: true,
   output: 'standalone',
-  allowedDevOrigins: ['192.168.1.7','192.168.1.8'],
+  allowedDevOrigins: ['192.168.1.7','192.168.1.8','192.168.1.3'],
   turbopack: {
     resolveAlias: {
       // `fumadocs-ui/mdx` needs the server implementation (real createRelativeLink)

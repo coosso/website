@@ -1,6 +1,6 @@
 import { loader } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
-import { notesContentRoute, notesImageRoute, notesRoute } from './shared';
+import { notesContentRoute, notesImageRoute } from './shared';
 import { defineDocs } from 'fumadocs-mdx/macro';
 import { metaSchema, pageSchema } from 'fumadocs-core/source/schema';
 
@@ -19,10 +19,23 @@ const notes = defineDocs({
 
 // See https://fumadocs.dev/docs/headless/source-api for more info
 export const source = loader({
-  baseUrl: notesRoute,
+  baseUrl: '/notes',
   source: notes.toFumadocsSource(),
   plugins: [lucideIconsPlugin()],
 });
+
+/**
+ * Look up a note page by slug, tolerant of Next.js's inconsistent slug
+ * encoding. Page components receive percent-encoded path segments while
+ * `generateMetadata` (and route handlers) receive decoded ones; fumadocs
+ * keys pages by the encoded form, so fall back to the encoded form when
+ * the direct lookup misses.
+ */
+export function getNotePage(slug: string[] | undefined) {
+  const page = source.getPage(slug);
+  if (page) return page;
+  return source.getPage(slug?.map((segment) => encodeURIComponent(segment)));
+}
 
 export function getPageImageUrl(page: (typeof source)['$inferPage']) {
   const segments = [...page.slugs, 'image.png'];

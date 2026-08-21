@@ -1,4 +1,4 @@
-import { getPageImageUrl, source } from '@/lib/source';
+import { getNotePage, getPageImageUrl, source } from '@/lib/source';
 import { notFound } from 'next/navigation';
 import { ImageResponse } from 'next/og';
 import { generate as DefaultImage } from 'fumadocs-ui/og';
@@ -8,7 +8,7 @@ export const revalidate = false;
 
 export async function GET(_req: Request, { params }: RouteContext<'/og/notes/[...slug]'>) {
   const { slug } = await params;
-  const page = source.getPage(slug.slice(0, -1));
+  const page = getNotePage(slug.slice(0, -1));
   if (!page) notFound();
 
   return new ImageResponse(

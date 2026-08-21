@@ -37,7 +37,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ vars.REGISTRY }}/coosso/site:latest
+            ${{ vars.REGISTRY }}/coosso/website:latest
 
       - name: Deploy on Server
         uses: appleboy/ssh-action@master
@@ -48,6 +48,6 @@ jobs:
           script: |
             echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login --username=coosso --password-stdin ${{ vars.REGISTRY }}
             cd /opt/docker-services
-            docker compose pull coosso-site
+            docker compose pull website
             docker compose up -d --remove-orphans
             docker image prune -f
