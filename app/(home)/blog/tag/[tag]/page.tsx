@@ -44,11 +44,8 @@ export default async function Page({
       {/* 页头：与博客页一致，仅当前标签高亮 */}
       <section className="border-b border-dashed border-neutral-300 dark:border-neutral-700">
         <div className="px-6 py-4 md:px-12 lg:px-24">
-          <div className="max-w-3xl">
-            <Bracket>博客</Bracket>
-            <p className="mt-2 max-w-lg text-neutral-600 dark:text-neutral-400">
-              关于技术成长与 AI 工程实践的记录。业精于勤，行成于思。
-            </p>
+          <div className="mx-auto w-full max-w-4xl">
+            <Bracket className="text-base md:text-lg lg:text-xl">Blog</Bracket>
             <div className="mt-3 flex flex-wrap gap-2">
               <TagPill tag="全部" href="/blog" />
               {tags.map((t) => (
@@ -67,16 +64,20 @@ export default async function Page({
       {/* 相关文章网格 */}
       <section className="border-b border-dashed border-neutral-300 dark:border-neutral-700">
         <div className="px-6 py-6 md:px-12 lg:px-24">
-          <Bracket>相关文章</Bracket>
-          <div className="mt-5">
-            <PostGrid posts={posts} />
+          <div className="mx-auto w-full max-w-4xl">
+            <Bracket>相关文章</Bracket>
+            <div className="mt-5">
+              <PostGrid posts={posts} />
+            </div>
           </div>
         </div>
       </section>
 
       {/* 页脚计数 */}
       <section className="px-6 py-5 md:px-12 lg:px-24">
-        <Bracket>共 {posts.length} 篇</Bracket>
+        <div className="mx-auto w-full max-w-4xl">
+          <Bracket>共 {posts.length} 篇</Bracket>
+        </div>
       </section>
     </div>
   );

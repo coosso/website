@@ -1,5 +1,47 @@
 @import './lib/default-colors.css';
 
+@theme {
+  --color-fd-primary: hsla(19, 99%, 44%, 1); /* cossistant orange */
+  --color-fd-ring: hsla(19, 99%, 44%, 1);
+}
+
+.dark {
+  --color-fd-primary: hsla(19, 99%, 45%, 1); /* cossistant orange */
+  --color-fd-ring: hsla(19, 99%, 50%, 1);
+}
+
+/* Markdown code blocks: dashed border, square corners, no shadow, lighter bg. */
+figure.shiki {
+  border-style: dashed;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: hsl(0 0% 95%); /* #f0f0f0 */
+}
+
+.dark figure.shiki {
+  background-color: hsl(0 0% 12%);
+}
+
+/* Inline code: dashed border, square corners, lighter bg (light mode only). */
+.prose :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  border-style: dashed;
+  border-radius: 0;
+  background-color: hsl(0 0% 93%);
+}
+
+.dark .prose :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  background-color: hsl(0, 0%, 14%);
+}
+
+/* Search dialog: darker popover background. */
+#fd-search-dialog-content {
+  background-color: hsl(0 0% 96.2%);
+}
+
+.dark #fd-search-dialog-content {
+  background-color: hsl(0 0% 8%);
+}
+
 .dark #nd-sidebar {
   --color-fd-muted: hsl(0, 0%, 16%);
   --color-fd-secondary: hsl(0, 0%, 18%);

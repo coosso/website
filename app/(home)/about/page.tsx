@@ -103,56 +103,16 @@ const CONTRIBUTIONS = [
 export default function AboutPage() {
   return (
     <div className="flex flex-col flex-1">
+      <div className='px-6 py-10 md:px-12 lg:px-24'>
+        <div className='mx-auto w-full max-w-4xl'>
       {/* 页头：个人档案布局，独立于首页的满幅横幅，沿用虚线几何 + 四角直角括号 */}
-      <section className="border-b border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="px-6 py-10 md:px-12 lg:px-24">
-          <div className="relative border border-dashed border-neutral-300 dark:border-neutral-700">
-            <Corners />
-            <div className="grid md:grid-cols-5">
-              {/* 左侧：几何花押字面板 */}
-              <div className="flex flex-col items-center justify-center gap-3 border-b border-dashed border-neutral-300 py-8 md:col-span-2 md:border-b-0 md:border-r dark:border-neutral-700">
-                <span className="flex size-20 items-center justify-center border border-dashed border-cossistant-orange font-mono text-3xl font-light text-cossistant-orange">
-                  {gitConfig.user.slice(0, 2)}
-                </span>
-                <span className="font-mono text-xs tracking-wider text-neutral-500 dark:text-neutral-400">
-                  [ 全栈 · AI ]
-                </span>
-              </div>
-              {/* 右侧：简介 + 元信息 */}
-              <div className="flex flex-col gap-5 p-6 md:col-span-3 md:p-8">
-                <Bracket>关于</Bracket>
-                <div>
-                  <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
-                    {gitConfig.user}
-                  </h1>
-                  <p className="mt-2 max-w-lg text-neutral-600 dark:text-neutral-400">
-                    一名专注于 AI 工程与软件开发的全栈工程师，喜欢把复杂的问题拆解成简洁的几何结构。
-                  </p>
-                </div>
-                <dl className="flex flex-col">
-                  {FACTS.map((row) => (
-                    <div
-                      key={row.k}
-                      className="flex items-baseline gap-4 border-t border-dashed border-neutral-300 py-2 first:border-t-0 dark:border-neutral-700"
-                    >
-                      <dt className="w-12 shrink-0 font-mono text-xs text-neutral-500 dark:text-neutral-400">
-                        {row.k}
-                      </dt>
-                      <dd className="text-sm text-neutral-800 dark:text-neutral-200">
-                        {row.v}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            </div>
-          </div>
+        <div className="text-center px-6 py-10 md:px-12 lg:px-24">
+          <Bracket className="text-base md:text-lg lg:text-xl">About</Bracket>
         </div>
-      </section>
 
       {/* 教育 */}
-      <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="px-6 py-12 md:px-12 lg:px-24">
+      <section>
+        <div className="py-6">
           <div className="max-w-3xl">
             <Bracket>教育</Bracket>
             <div className="mt-6 flex flex-col">
@@ -186,7 +146,7 @@ export default function AboutPage() {
 
       {/* 关于本站 */}
       <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="px-6 py-12 md:px-12 lg:px-24">
+        <div className="py-6">
           <div className="max-w-3xl">
             <Bracket>关于本站</Bracket>
             <div className="mt-6 flex flex-col">
@@ -226,7 +186,7 @@ export default function AboutPage() {
 
       {/* 个人开源项目 */}
       <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="px-6 py-12 md:px-12 lg:px-24">
+        <div className="py-6 g:px-12">
           <div className="max-w-4xl">
             <Bracket>个人开源项目</Bracket>
             <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -264,7 +224,7 @@ export default function AboutPage() {
 
       {/* 参与开源项目 */}
       <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="px-6 py-12 md:px-12 lg:px-24">
+        <div className="py-6">
           <div className="max-w-3xl">
             <Bracket>参与开源项目</Bracket>
             <div className="mt-6 flex flex-col">
@@ -298,7 +258,7 @@ export default function AboutPage() {
 
       {/* 联系 */}
       <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="px-6 py-12 md:px-12 lg:px-24">
+        <div className="py-6">
           <div className="max-w-3xl">
             <Bracket>联系</Bracket>
             <p className="mt-4 max-w-lg text-neutral-600 dark:text-neutral-400">
@@ -316,9 +276,11 @@ export default function AboutPage() {
       </section>
 
       {/* 页脚 */}
-      <section className="px-6 py-5 md:px-12 lg:px-24">
+      <section className=" py-5 lg:px-24">
         <Bracket>感谢来访</Bracket>
       </section>
+      </div>
+      </div>
     </div>
   );
 }

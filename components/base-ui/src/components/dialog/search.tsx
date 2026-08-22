@@ -108,7 +108,7 @@ const mdComponents = {
     return (
       <code
         {...props}
-        className="border rounded-md px-px bg-fd-secondary text-fd-secondary-foreground"
+        className="border border-dashed rounded-none px-px bg-fd-secondary text-fd-secondary-foreground"
       />
     );
   },
