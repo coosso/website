@@ -56,7 +56,7 @@ export function FullSearchTrigger({ hideIfDisabled, ...props }: FullSearchTrigge
       data-search-full=""
       {...props}
       className={cn(
-        'inline-flex h-7 items-center justify-start gap-2 rounded-sm border border-dashed border-fd-border bg-fd-background px-2 text-xs font-normal text-fd-muted-foreground transition-colors hover:bg-fd-accent/30',
+        'inline-flex h-7 items-center justify-start gap-2 border border-dashed border-fd-border bg-fd-background px-2 text-xs font-normal text-fd-muted-foreground transition-colors hover:bg-fd-accent/30 hover:cursor-pointer',
         props.className,
       )}
     >

@@ -71,7 +71,7 @@ export function Header(props: ComponentProps<'header'>) {
         {slots.searchTrigger && (
           <slots.searchTrigger.full
             hideIfDisabled
-            className="w-full max-w-[240px]"
+            className="w-full max-w-[160px]"
           />
         )}
         <ul className="flex flex-row gap-2 items-center empty:hidden">

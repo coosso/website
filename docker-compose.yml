@@ -1,11 +1,11 @@
 services:
-  coosso:
+  website:
     build: .
-    image: website:latest
+    image: crpi-gw9oqim33coyxw0c.cn-hangzhou.personal.cr.aliyuncs.com/coosso/website:latest
     container_name: website
     restart: always
     ports:
-      - "3000:3000"
+      - "3001:3000"
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
       interval: 30s

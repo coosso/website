@@ -85,7 +85,7 @@ const mdRenderer = createMarkdownRenderer({
 
 const mdComponents = {
   mark(props: ComponentProps<'mark'>) {
-    return <span {...props} className="text-fd-primary underline" />;
+    return <span {...props} className="text-cossistant-orange underline" />;
   },
   a: 'span',
   p(props: ComponentProps<'p'>) {
