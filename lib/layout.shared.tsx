@@ -6,7 +6,7 @@ export function baseOptions(): BaseLayoutProps {
     nav: {
       // JSX supported
       title: (
-        <span className="inline-flex items-center gap-1">
+        <span className="site-mono inline-flex items-center gap-1 text-md">
           <span className="text-cossistant-orange">[</span>
           <span>{appName}</span>
           <span className="text-cossistant-orange">]</span>
@@ -15,25 +15,24 @@ export function baseOptions(): BaseLayoutProps {
     },
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
     links: [
-            {
+      {
         type: 'bracket',
         text: '博客',
         url: '/blog',
-        on:'nav',
+        on: 'nav',
       },
       {
         type: 'bracket',
         text: '笔记',
         url: '/notes',
-        on:'nav',
+        on: 'nav',
       },
       {
         type: 'bracket',
         text: '关于',
         url: '/about',
-        on:'nav',
+        on: 'nav',
       },
-
     ],
   };
 }

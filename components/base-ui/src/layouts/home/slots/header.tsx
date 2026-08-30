@@ -32,10 +32,10 @@ export const navItemVariants = cva('[&_svg]:size-4', {
 });
 
 export const bracketLinkClassName =
-  'group flex items-center gap-1 font-medium text-fd-foreground/80 text-sm transition-colors hover:text-fd-foreground data-[active=true]:text-fd-foreground';
+  'group site-mono flex items-center gap-1 text-md font-semibold tracking-[0.08em] text-fd-foreground/80 transition-colors hover:text-fd-foreground data-[active=true]:text-fd-foreground';
 
 const bracketSpanClassName =
-  'text-fd-foreground/30 opacity-0 transition-all duration-100 group-hover:text-cossistant-orange group-hover:opacity-100';
+  'text-cossistant-orange opacity-0 transition-opacity duration-150 group-data-[active=true]:opacity-100';
 
 export function Header(props: ComponentProps<'header'>) {
   const {
@@ -71,7 +71,7 @@ export function Header(props: ComponentProps<'header'>) {
         {slots.searchTrigger && (
           <slots.searchTrigger.full
             hideIfDisabled
-            className="w-full max-w-[160px]"
+            className="w-full max-w-[160px] text-sm"
           />
         )}
         <ul className="flex flex-row gap-2 items-center empty:hidden">

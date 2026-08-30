@@ -106,26 +106,52 @@ export default function AboutPage() {
       <div className='px-6 py-10 md:px-12 lg:px-24'>
         <div className='mx-auto w-full max-w-4xl'>
       {/* 页头：个人档案布局，独立于首页的满幅横幅，沿用虚线几何 + 四角直角括号 */}
-        <div className="text-center px-6 py-10 md:px-12 lg:px-24">
+        <div className="px-6 py-10 text-center md:px-12 lg:px-24">
           <Bracket className="text-base md:text-lg lg:text-xl">About</Bracket>
+          <div className="mt-3 site-mono text-[10px] tracking-[0.16em] text-neutral-400 dark:text-neutral-500">
+            PROFILE / 00
+          </div>
+          <div className="mx-auto mt-8 grid max-w-2xl border-y border-dashed border-neutral-300 text-left dark:border-neutral-700 sm:grid-cols-3">
+            {FACTS.map((fact, index) => (
+              <div
+                key={fact.k}
+                className="flex items-center justify-between gap-4 border-b border-dashed border-neutral-300 py-3 last:border-b-0 dark:border-neutral-700 sm:block sm:border-b-0 sm:border-r sm:px-4 sm:last:border-r-0"
+              >
+                <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
+                  0{index + 1} / {fact.k}
+                </span>
+                <span className="text-sm font-medium sm:mt-2 sm:block">
+                  {fact.v}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
       {/* 教育 */}
       <section>
         <div className="py-6">
           <div className="max-w-3xl">
-            <Bracket>教育</Bracket>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <Bracket>教育</Bracket>
+              <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
+                01 / FORMATION
+              </span>
+            </div>
             <div className="mt-6 flex flex-col">
-              {EDUCATION.map((item) => (
+              {EDUCATION.map((item, index) => (
                 <div
                   key={item.period}
-                  className="relative border-l border-dashed border-neutral-300 pb-8 pl-6 last:pb-0 dark:border-neutral-700"
+                  className="group relative border-l border-dashed border-neutral-300 pb-8 pl-6 last:pb-0 dark:border-neutral-700"
                 >
-                  <span className="absolute -left-[5px] top-1.5 size-[9px] bg-cossistant-orange" />
-                  <div className="font-mono text-sm text-cossistant-orange">
-                    [ {item.period} ]
+                  <span className="absolute -left-[5px] top-1.5 size-[9px] bg-cossistant-orange transition-transform group-hover:scale-125" />
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <Bracket className="text-[11px]">{item.period}</Bracket>
+                    <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
+                      0{index + 1} / NODE
+                    </span>
                   </div>
-                  <h3 className="mt-2 text-lg font-bold tracking-tight">
+                  <h3 className="mt-3 text-lg font-bold tracking-tight">
                     {item.school}
                     <span className="ml-2 font-mono text-sm font-normal text-neutral-500 dark:text-neutral-400">
                       {item.degree}
@@ -150,14 +176,19 @@ export default function AboutPage() {
           <div className="max-w-3xl">
             <Bracket>关于本站</Bracket>
             <div className="mt-6 flex flex-col">
-              {SITE_STACK.map((row) => (
+              {SITE_STACK.map((row, index) => (
                 <div
                   key={row.label}
-                  className="flex flex-col gap-2 border-b border-dashed border-neutral-300 py-4 last:border-b-0 dark:border-neutral-700 sm:flex-row sm:items-baseline sm:gap-6"
+                  className="flex flex-col gap-2 border-b border-dashed border-neutral-300 py-4 transition-colors last:border-b-0 hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-900/50 sm:flex-row sm:items-baseline sm:gap-6"
                 >
-                  <span className="w-20 shrink-0 font-mono text-xs text-neutral-500 dark:text-neutral-400">
-                    {row.label}
-                  </span>
+                  <div className="flex w-20 shrink-0 items-center gap-2">
+                    <span className="site-mono text-[10px] text-cossistant-orange">
+                      0{index + 1}
+                    </span>
+                    <span className="site-mono text-xs text-neutral-500 dark:text-neutral-400">
+                      {row.label}
+                    </span>
+                  </div>
                   <div className="flex flex-wrap gap-2">
                     {Array.isArray(row.value) ? (
                       row.value.map((v) => (
@@ -166,9 +197,10 @@ export default function AboutPage() {
                           href={v.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="border border-dashed border-neutral-300 px-2.5 py-1 font-mono text-xs text-neutral-600 transition-colors hover:border-cossistant-orange hover:text-cossistant-orange dark:border-neutral-700 dark:text-neutral-300"
+                          className="inline-flex items-center gap-2 border border-dashed border-neutral-300 px-2.5 py-1 font-mono text-xs text-neutral-600 transition-colors hover:border-cossistant-orange hover:bg-neutral-50 hover:text-cossistant-orange dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-900"
                         >
                           {v.name}
+                          <span className="text-cossistant-orange">↗</span>
                         </a>
                       ))
                     ) : (
@@ -186,28 +218,38 @@ export default function AboutPage() {
 
       {/* 个人开源项目 */}
       <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="py-6 g:px-12">
+        <div className="py-6">
           <div className="max-w-4xl">
-            <Bracket>个人开源项目</Bracket>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <Bracket>个人开源项目</Bracket>
+              <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
+                03 / OPEN SOURCE
+              </span>
+            </div>
             <div className="mt-6 grid gap-4 md:grid-cols-2">
-              {PROJECTS.map((project) => (
+              {PROJECTS.map((project, index) => (
                 <a
                   key={project.name}
                   href={project.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="group relative border border-dashed border-neutral-300 p-5 transition-colors hover:border-cossistant-orange dark:border-neutral-700"
+                  className="group relative flex min-h-[220px] flex-col border border-dashed border-neutral-300 p-5 transition-colors hover:border-cossistant-orange hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cossistant-orange dark:border-neutral-700 dark:hover:bg-neutral-900/50"
                 >
                   <Corners />
                   <div className="flex items-center justify-between gap-3">
-                    <h3 className="font-mono text-base font-bold transition-colors group-hover:text-cossistant-orange">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <span className="site-mono text-[10px] tracking-[0.12em] text-cossistant-orange">
+                        0{index + 1}
+                      </span>
+                      <h3 className="truncate font-mono text-base font-bold transition-colors group-hover:text-cossistant-orange">
                       {project.name}
-                    </h3>
+                      </h3>
+                    </div>
                     <span className="font-mono text-xs text-cossistant-orange opacity-0 transition-opacity group-hover:opacity-100">
                       [→]
                     </span>
                   </div>
-                  <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
                     {project.desc}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-1.5">
@@ -226,29 +268,39 @@ export default function AboutPage() {
       <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
         <div className="py-6">
           <div className="max-w-3xl">
-            <Bracket>参与开源项目</Bracket>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <Bracket>参与开源项目</Bracket>
+              <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
+                04 / CONTRIBUTIONS
+              </span>
+            </div>
             <div className="mt-6 flex flex-col">
-              {CONTRIBUTIONS.map((item) => (
+              {CONTRIBUTIONS.map((item, index) => (
                 <div
                   key={item.name}
-                  className="flex flex-col gap-1 border-b border-dashed border-neutral-300 py-4 last:border-b-0 dark:border-neutral-700"
+                  className="group flex gap-4 border-b border-dashed border-neutral-300 py-4 transition-colors last:border-b-0 hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-900/50"
                 >
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="font-mono text-base font-bold transition-colors hover:text-cossistant-orange"
-                    >
-                      {item.name}
-                    </a>
-                    <span className="font-mono text-xs text-cossistant-orange">
-                      {item.role}
-                    </span>
+                  <span className="site-mono pt-1 text-[10px] text-cossistant-orange">
+                    0{index + 1}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-mono text-base font-bold transition-colors hover:text-cossistant-orange"
+                      >
+                        {item.name}
+                      </a>
+                      <span className="font-mono text-xs text-cossistant-orange">
+                        {item.role}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      {item.desc}
+                    </p>
                   </div>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                    {item.desc}
-                  </p>
                 </div>
               ))}
             </div>
@@ -260,23 +312,31 @@ export default function AboutPage() {
       <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
         <div className="py-6">
           <div className="max-w-3xl">
-            <Bracket>联系</Bracket>
-            <p className="mt-4 max-w-lg text-neutral-600 dark:text-neutral-400">
-              如果你也对 AI 工程、开源或几何美学感兴趣，欢迎交流。
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <TagPill tag="GitHub" href={`https://github.com/${gitConfig.user}`} />
-              <TagPill
-                tag="Email"
-                href={`mailto:${gitConfig.user}@users.noreply.github.com`}
-              />
+            <div className="site-panel relative p-5 md:p-6">
+              <Corners />
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <Bracket>联系</Bracket>
+                <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
+                  05 / OPEN CHANNEL
+                </span>
+              </div>
+              <p className="mt-4 max-w-lg text-neutral-600 dark:text-neutral-400">
+                如果你也对 AI 工程、开源或几何美学感兴趣，欢迎交流。
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <TagPill tag="GitHub" href={`https://github.com/${gitConfig.user}`} />
+                <TagPill
+                  tag="Email"
+                  href={`mailto:${gitConfig.user}@users.noreply.github.com`}
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* 页脚 */}
-      <section className=" py-5 lg:px-24">
+      <section className="py-5 site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500 lg:px-24">
         <Bracket>感谢来访</Bracket>
       </section>
       </div>

@@ -2,6 +2,28 @@
 @import '../components/base-ui/css/neutral.css';
 @import '../components/base-ui/css/preset.css';
 
+:root {
+  --site-bg: hsl(0, 0%, 96%);
+  --site-surface: hsl(0, 0%, 98%);
+  --site-surface-raised: hsl(0, 0%, 93.1%);
+  --site-ink: hsl(0, 0%, 3.9%);
+  --site-muted: hsl(0, 0%, 45.1%);
+  --site-line: hsla(0, 0%, 80%, 50%);
+  --site-line-strong: hsla(0, 0%, 63.9%, 65%);
+  --site-orange: hsla(19, 99%, 44%, 1);
+}
+
+.dark {
+  --site-bg: hsl(0, 0%, 7.04%);
+  --site-surface: hsl(0, 0%, 11.6%);
+  --site-surface-raised: hsl(0, 0%, 12.9%);
+  --site-ink: hsl(0, 0%, 92%);
+  --site-muted: hsla(0, 0%, 70%, 0.8);
+  --site-line: hsla(0, 0%, 40%, 20%);
+  --site-line-strong: hsla(0, 0%, 54.9%, 65%);
+  --site-orange: hsla(19, 99%, 50%, 1);
+}
+
 html {
   /* Overlay scrollbar: keep the vertical scrollbar from reserving horizontal
      layout space, so the page keeps its full width regardless of overflow. */
@@ -12,6 +34,113 @@ html {
 html > body[data-scroll-locked] {
   margin-right: 0px !important;
   --removed-body-scroll-bar-size: 0px !important;
+}
+
+html {
+  background: var(--site-bg);
+}
+
+body {
+  background: var(--site-bg);
+  color: var(--site-ink);
+  letter-spacing: -0.012em;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--site-orange) 22%, transparent);
+  color: var(--site-ink);
+}
+
+.site-panel {
+  border: 1px dashed var(--site-line-strong);
+  background: color-mix(in srgb, var(--site-surface) 82%, transparent);
+}
+
+.site-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.025em;
+}
+
+.site-section-label {
+  color: var(--site-orange);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.site-corner-mark {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--site-orange);
+}
+
+.site-corner-mark--tl {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+
+.site-corner-mark--tr {
+  top: -1px;
+  right: -1px;
+  border-top: 2px solid;
+  border-right: 2px solid;
+}
+
+.site-corner-mark--bl {
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+}
+
+.site-corner-mark--br {
+  right: -1px;
+  bottom: -1px;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+}
+
+#nd-home-layout {
+  --fd-layout-width: 1340px;
+}
+
+#nd-nav {
+  background: color-mix(in srgb, var(--site-bg) 84%, transparent);
+  backdrop-filter: blur(16px);
+}
+
+#nd-nav > div {
+  border-color: var(--site-line);
+}
+
+#nd-nav [data-slot='nav-title'] {
+  letter-spacing: -0.035em;
+}
+
+#nd-nav a,
+#nd-nav button {
+  transition-duration: 180ms;
+}
+
+#nd-nav .group:hover span,
+#nd-nav [data-active='true'] span {
+  color: var(--site-orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 @theme inline {

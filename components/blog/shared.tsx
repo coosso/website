@@ -18,8 +18,9 @@ export function Bracket({
   className?: string;
 }) {
   return (
-    <span className={cn('font-mono text-xs font-medium tracking-wider text-sm md:text-md', className)}>
-      <span className="text-cossistant-orange">[</span> {children}{' '}
+    <span className={cn('inline-flex items-baseline gap-[0.38em] font-mono text-xs font-semibold tracking-[0.12em]', className)}>
+      <span className="text-cossistant-orange">[</span>
+      <span>{children}</span>
       <span className="text-cossistant-orange">]</span>
     </span>
   );
@@ -36,7 +37,7 @@ export function TagPill({
   active?: boolean;
 }) {
   const className = cn(
-    'rounded-xs border border-dashed border-neutral-300 px-2.5 py-1 font-mono text-xs',
+    'border border-dashed border-neutral-300 px-2.5 py-1 font-mono text-xs',
     'text-neutral-600 transition-colors hover:border-cossistant-orange hover:text-cossistant-orange',
     'dark:border-neutral-700 dark:text-neutral-300',
     active &&
