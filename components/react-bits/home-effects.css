@@ -1,0 +1,243 @@
+/* Home-only effects. The original site palette, rails and background grid stay in global.css. */
+.home-page .site-corner-mark {
+  border-color: var(--site-orange);
+}
+
+.rb-reveal[data-ready='true'] {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  filter: blur(4px);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1) var(--rb-delay, 0ms),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1) var(--rb-delay, 0ms),
+    filter 700ms cubic-bezier(0.22, 1, 0.36, 1) var(--rb-delay, 0ms);
+}
+
+.rb-reveal[data-visible='true'] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.rb-spotlight {
+  position: relative;
+  isolation: isolate;
+  --rb-x: 50%;
+  --rb-y: 50%;
+}
+
+.rb-spotlight__light {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    260px circle at var(--rb-x) var(--rb-y),
+    color-mix(in srgb, var(--site-orange) 13%, transparent),
+    transparent 75%
+  );
+  transition: opacity 350ms ease;
+}
+
+.rb-spotlight__reticle {
+  position: absolute;
+  left: var(--rb-x);
+  top: var(--rb-y);
+  z-index: 2;
+  pointer-events: none;
+  font: 12px/1 ui-monospace, monospace;
+  color: var(--site-orange);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 250ms ease;
+}
+
+.rb-spotlight:focus-within > .rb-spotlight__light {
+  opacity: 1;
+}
+
+.rb-magnet {
+  display: inline-block;
+  position: relative;
+}
+
+.rb-magnet__inner {
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rb-count {
+  display: inline-block;
+  position: relative;
+}
+
+.rb-decrypted {
+  display: inline-block;
+}
+
+.rb-decrypted__cell {
+  display: inline-block;
+  position: relative;
+}
+
+.rb-decrypted__glyph {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+}
+
+.rb-decrypted__glyph--scrambled {
+  font-family: ui-monospace, monospace;
+  color: var(--site-orange);
+  opacity: 0.65;
+}
+
+.rb-shiny-text {
+  color: var(--site-ink);
+}
+
+@supports (background-clip: text) {
+  .rb-shiny-text {
+    background: linear-gradient(
+      115deg,
+      var(--site-ink) 35%,
+      var(--site-orange) 48%,
+      color-mix(in srgb, var(--site-orange) 40%, var(--site-ink)) 52%,
+      var(--site-ink) 65%
+    );
+    background-size: 250% 100%;
+    background-clip: text;
+    color: transparent;
+    animation: rb-shine 6s ease-in-out 2;
+    animation-play-state: paused;
+  }
+}
+
+.rb-reveal[data-visible='true'] .rb-shiny-text {
+  animation-play-state: running;
+}
+
+.home-terminal {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.home-terminal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.4;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgb(255 255 255 / 3%) 3px 4px);
+}
+
+.home-terminal-line {
+  animation: rb-terminal-line 600ms both;
+  animation-delay: var(--line-delay, 0ms);
+}
+
+.rb-reveal[data-ready='true']:not([data-visible='true']) .home-terminal-line {
+  animation-play-state: paused;
+}
+
+.home-terminal-line--response {
+  color: #a3a3a3;
+}
+
+.home-terminal-line--response::before {
+  content: '↳ ';
+  color: #525252;
+}
+
+.home-tool-tag {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-tool-tag::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 20%, color-mix(in srgb, var(--site-orange) 12%, transparent) 50%, transparent 80%);
+  transform: translateX(-150%);
+  transition: transform 600ms ease;
+}
+
+.home-output-card .site-corner-mark {
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.home-output-card:focus-within .site-corner-mark {
+  opacity: 1;
+}
+
+.home-loop {
+  display: inline-block;
+  transition: color 300ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .rb-spotlight:hover > .rb-spotlight__light,
+  .rb-spotlight:hover > .rb-spotlight__reticle {
+    opacity: 1;
+  }
+
+  .home-tool-tag:hover::before {
+    transform: translateX(150%);
+  }
+
+  .home-output-card:hover .site-corner-mark {
+    opacity: 1;
+  }
+
+  .rb-spotlight:hover .home-loop {
+    color: var(--site-orange);
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rb-shine {
+  0%, 15% { background-position: 100% 50%; }
+  70%, 100% { background-position: 0% 50%; }
+}
+
+@keyframes rb-terminal-line {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-reveal[data-ready='true'],
+  .rb-reveal[data-visible='true'] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .rb-magnet__inner {
+    transform: none !important;
+  }
+
+  .rb-spotlight__reticle,
+  .rb-spotlight__light {
+    display: none;
+  }
+
+  .rb-shiny-text {
+    animation: none;
+    background: none;
+    color: var(--site-ink);
+  }
+
+  .home-terminal-line {
+    animation: none;
+  }
+
+  .home-tool-tag::before {
+    display: none;
+  }
+}
