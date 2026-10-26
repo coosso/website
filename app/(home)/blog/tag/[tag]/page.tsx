@@ -1,84 +1,30 @@
 import type { Metadata } from 'next';
+import { ListingHeader } from '@/components/blog/listing-header';
 import { PostGrid } from '@/components/blog/post-grid';
-import { Bracket, TagPill } from '@/components/blog/shared';
 import { getBlogPosts, getBlogTags } from '@/lib/source';
+import '@/components/site/blog.css';
 
-/** 动态路由参数可能是 URL 编码后的值，这里安全地解码一次。 */
 function decodeTag(value: string): string {
-  try {
-    return decodeURIComponent(value);
-  } catch {
-    return value;
-  }
+  if (getBlogTags().includes(value)) return value;
+  try { return decodeURIComponent(value); } catch { return value; }
 }
 
-export function generateStaticParams() {
-  return getBlogTags().map((tag) => ({ tag }));
-}
+export function generateStaticParams() { return getBlogTags().map((tag) => ({ tag })); }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ tag: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ tag: string }> }): Promise<Metadata> {
   const { tag } = await params;
   const decoded = decodeTag(tag);
-  return {
-    title: `标签：${decoded}`,
-    description: `关于「${decoded}」的文章合集。`,
-  };
+  return { title: `标签：${decoded}`, description: `关于「${decoded}」的文章合集。` };
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ tag: string }>;
-}) {
+export default async function Page({ params }: { params: Promise<{ tag: string }> }) {
   const { tag: rawTag } = await params;
   const tag = decodeTag(rawTag);
   const posts = getBlogPosts().filter((post) => post.data.tags?.includes(tag));
-  const tags = getBlogTags();
-
   return (
-    <div className="flex flex-col flex-1">
-      {/* 页头：与博客页一致，仅当前标签高亮 */}
-      <section className="border-b border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="px-6 py-4 md:px-12 lg:px-24">
-          <div className="mx-auto w-full max-w-4xl">
-            <Bracket className="text-base md:text-lg lg:text-xl">Blog</Bracket>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <TagPill tag="全部" href="/blog" />
-              {tags.map((t) => (
-                <TagPill
-                  key={t}
-                  tag={t}
-                  href={`/blog/tag/${encodeURIComponent(t)}`}
-                  active={t === tag}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 相关文章网格 */}
-      <section className="border-b border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="px-6 py-6 md:px-12 lg:px-24">
-          <div className="mx-auto w-full max-w-4xl">
-            <Bracket>相关文章</Bracket>
-            <div className="mt-5">
-              <PostGrid posts={posts} />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 页脚计数 */}
-      <section className="px-6 py-5 md:px-12 lg:px-24">
-        <div className="mx-auto w-full max-w-4xl">
-          <Bracket>共 {posts.length} 篇</Bracket>
-        </div>
-      </section>
+    <div className="blog-page">
+      <ListingHeader tags={getBlogTags()} activeTag={tag} count={posts.length} />
+      <section className="site-container site-section blog-archive" aria-labelledby="blog-tag-heading"><div className="blog-section-heading"><div><span className="site-eyebrow">SELECTED TOPIC</span><h2 id="blog-tag-heading">{tag}</h2></div><span className="blog-section-count">{posts.length} 篇记录</span></div><PostGrid posts={posts} /></section>
     </div>
   );
 }

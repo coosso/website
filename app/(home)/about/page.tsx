@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
-import { Bracket, Corners, TagPill } from '@/components/blog/shared';
+import { ArrowDown, ArrowUpRight, Code2, GitBranch, Mail } from 'lucide-react';
+import { AnimatedContent, BlurText, DecryptedText, Magnet, ScrollReveal, ShinyText, SpotlightCard, StarBorder, ThreadsBackground, TiltedCard } from '@/components/react-bits';
+import '@/components/site/about.css';
 import { gitConfig } from '@/lib/shared';
 
 export const metadata: Metadata = {
@@ -33,20 +35,20 @@ const FACTS = [
   { k: '状态', v: '开源 · 持续构建' },
 ];
 
-/** 本站技术栈：框架 / UI 风格 / 华丽效果（可点击跳转 Aceternity 组件页）。 */
+/** 本站技术栈与实际采用的 React Bits 组件。 */
 const SITE_STACK: { label: string; value: string | EffectLink[] }[] = [
   { label: '框架', value: 'Fumadocs · Next.js（服务端渲染）' },
-  { label: 'UI 风格', value: '虚线几何 + 橙色点缀' },
+  { label: 'UI 风格', value: '黑曜石 × 电光橙' },
   {
-    label: '华丽效果',
+    label: '交互动效',
     value: [
       {
-        name: '加密动态文本',
-        url: 'https://ui.aceternity.com/components/encrypted-text',
+        name: 'React Bits · Decrypted Text',
+        url: 'https://reactbits.dev/text-animations/decrypted-text',
       },
       {
-        name: '矩形背景涟漪',
-        url: 'https://ui.aceternity.com/components/background-ripple-effect',
+        name: 'React Bits · Threads',
+        url: 'https://reactbits.dev/backgrounds/threads',
       },
     ],
   },
@@ -102,245 +104,103 @@ const CONTRIBUTIONS = [
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col flex-1">
-      <div className='px-6 py-10 md:px-12 lg:px-24'>
-        <div className='mx-auto w-full max-w-4xl'>
-      {/* 页头：个人档案布局，独立于首页的满幅横幅，沿用虚线几何 + 四角直角括号 */}
-        <div className="px-6 py-10 text-center md:px-12 lg:px-24">
-          <Bracket className="text-base md:text-lg lg:text-xl">About</Bracket>
-          <div className="mt-3 site-mono text-[10px] tracking-[0.16em] text-neutral-400 dark:text-neutral-500">
-            PROFILE / 00
-          </div>
-          <div className="mx-auto mt-8 grid max-w-2xl border-y border-dashed border-neutral-300 text-left dark:border-neutral-700 sm:grid-cols-3">
-            {FACTS.map((fact, index) => (
-              <div
-                key={fact.k}
-                className="flex items-center justify-between gap-4 border-b border-dashed border-neutral-300 py-3 last:border-b-0 dark:border-neutral-700 sm:block sm:border-b-0 sm:border-r sm:px-4 sm:last:border-r-0"
-              >
-                <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
-                  0{index + 1} / {fact.k}
-                </span>
-                <span className="text-sm font-medium sm:mt-2 sm:block">
-                  {fact.v}
-                </span>
-              </div>
-            ))}
-          </div>
+    <div className="about-page">
+      <section className="about-hero site-container">
+        <div className="about-hero-backdrop" aria-hidden="true">
+          <ThreadsBackground />
         </div>
+        <AnimatedContent className="about-intro">
+          <p className="site-eyebrow"><DecryptedText text="ABOUT / THE BUILDER" /></p>
+          <h1 className="about-title">全栈构建，<br /><BlurText text="探索智能协作。" /></h1>
+          <p className="site-lead about-intro-copy">关于我、正在构建的项目，以及这个持续生长的空间。</p>
+          <a href="#about-projects" className="about-jump site-link">探索我的项目 <ArrowDown size={16} aria-hidden="true" /></a>
+        </AnimatedContent>
 
-      {/* 教育 */}
-      <section>
-        <div className="py-6">
-          <div className="max-w-3xl">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <Bracket>教育</Bracket>
-              <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
-                01 / FORMATION
-              </span>
+        <AnimatedContent className="about-identity-wrap" delay={0.15}>
+          <TiltedCard className="about-identity">
+            <div className="about-identity-top"><span className="site-mono">PROFILE / 00</span><span className="about-status">持续构建</span></div>
+            <div className="about-identity-art" aria-hidden="true">
+              <span className="about-orbit about-orbit-one" />
+              <span className="about-orbit about-orbit-two" />
+              <span className="about-orbit about-orbit-three" />
+              <span className="about-monogram">c<span>.</span></span>
+              <Code2 className="about-code-mark" strokeWidth={1.2} />
             </div>
-            <div className="mt-6 flex flex-col">
-              {EDUCATION.map((item, index) => (
-                <div
-                  key={item.period}
-                  className="group relative border-l border-dashed border-neutral-300 pb-8 pl-6 last:pb-0 dark:border-neutral-700"
-                >
-                  <span className="absolute -left-[5px] top-1.5 size-[9px] bg-cossistant-orange transition-transform group-hover:scale-125" />
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <Bracket className="text-[11px]">{item.period}</Bracket>
-                    <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
-                      0{index + 1} / NODE
-                    </span>
-                  </div>
-                  <h3 className="mt-3 text-lg font-bold tracking-tight">
-                    {item.school}
-                    <span className="ml-2 font-mono text-sm font-normal text-neutral-500 dark:text-neutral-400">
-                      {item.degree}
-                    </span>
-                  </h3>
-                  <p className="mt-1 text-neutral-600 dark:text-neutral-400">
-                    {item.major}
-                  </p>
-                  <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-                    {item.note}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+            <div className="about-identity-name"><ShinyText text={gitConfig.user} /><span>ENGINEER / OPEN SOURCE</span></div>
+            <dl className="about-facts">
+              {FACTS.map((fact) => <div key={fact.k}><dt>{fact.k}</dt><dd>{fact.v}</dd></div>)}
+            </dl>
+          </TiltedCard>
+        </AnimatedContent>
+      </section>
+
+      <section className="site-container about-statement">
+        <p className="site-eyebrow">FOCUS / 01</p>
+        <ScrollReveal className="about-statement-text">围绕 LLM 应用与多智能体系统，持续构建与开源。</ScrollReveal>
+        <div className="about-focus-tags"><span className="site-tag">全栈工程</span><span className="site-tag">LLM 应用</span><span className="site-tag">多智能体</span><span className="site-tag">开源</span></div>
+      </section>
+
+      <section className="site-container site-section about-formation">
+        <div className="about-section-intro"><p className="site-eyebrow">FORMATION / 02</p><h2 className="site-section-heading">知识的来处</h2><p className="site-muted">从数理基础，到软件工程。</p></div>
+        <div className="about-timeline">
+          {EDUCATION.map((item, index) => (
+            <AnimatedContent key={item.period} delay={index * 0.1} className="about-timeline-item">
+              <span className="about-timeline-dot" aria-hidden="true" />
+              <p className="about-period site-mono">{item.period}</p>
+              <h3>{item.school}<span>{item.degree} / {item.major}</span></h3>
+              <p className="site-muted">{item.note}</p>
+            </AnimatedContent>
+          ))}
         </div>
       </section>
 
-      {/* 关于本站 */}
-      <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="py-6">
-          <div className="max-w-3xl">
-            <Bracket>关于本站</Bracket>
-            <div className="mt-6 flex flex-col">
-              {SITE_STACK.map((row, index) => (
-                <div
-                  key={row.label}
-                  className="flex flex-col gap-2 border-b border-dashed border-neutral-300 py-4 transition-colors last:border-b-0 hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-900/50 sm:flex-row sm:items-baseline sm:gap-6"
-                >
-                  <div className="flex w-20 shrink-0 items-center gap-2">
-                    <span className="site-mono text-[10px] text-cossistant-orange">
-                      0{index + 1}
-                    </span>
-                    <span className="site-mono text-xs text-neutral-500 dark:text-neutral-400">
-                      {row.label}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {Array.isArray(row.value) ? (
-                      row.value.map((v) => (
-                        <a
-                          key={v.name}
-                          href={v.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 border border-dashed border-neutral-300 px-2.5 py-1 font-mono text-xs text-neutral-600 transition-colors hover:border-cossistant-orange hover:bg-neutral-50 hover:text-cossistant-orange dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-900"
-                        >
-                          {v.name}
-                          <span className="text-cossistant-orange">↗</span>
-                        </a>
-                      ))
-                    ) : (
-                      <span className="text-sm text-neutral-800 dark:text-neutral-200">
-                        {row.value}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+      <section id="about-projects" className="site-container site-section about-projects-section">
+        <div className="about-section-heading"><div><p className="site-eyebrow">SELECTED PROJECTS / 03</p><h2 className="site-section-heading">想法落地的地方</h2></div><a href={`https://github.com/${gitConfig.user}`} target="_blank" rel="noreferrer" className="site-link">在 GitHub 探索 <ArrowUpRight size={16} aria-hidden="true" /></a></div>
+        <div className="about-project-grid">
+          {PROJECTS.map((project, index) => (
+            <AnimatedContent key={project.name} delay={index % 2 * 0.1}>
+              <TiltedCard className="about-project-tilt">
+                <SpotlightCard className="about-project">
+                  <a href={project.url} target="_blank" rel="noreferrer" className="about-project-link">
+                    <div className={`about-project-art about-project-art-${index + 1}`} aria-hidden="true"><span className="about-project-symbol">{['{ }', '↗', '≈', '>_'][index]}</span><span className="about-project-art-label">BUILD / 0{index + 1}</span><span className="about-project-arrow"><ArrowUpRight size={21} /></span></div>
+                    <div className="about-project-content"><h3>{project.name}</h3><p>{project.desc}</p><div className="about-project-tags">{project.tags.map((tag) => <span key={tag} className="site-tag">{tag}</span>)}</div></div>
+                  </a>
+                </SpotlightCard>
+              </TiltedCard>
+            </AnimatedContent>
+          ))}
         </div>
       </section>
 
-      {/* 个人开源项目 */}
-      <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="py-6">
-          <div className="max-w-4xl">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <Bracket>个人开源项目</Bracket>
-              <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
-                03 / OPEN SOURCE
-              </span>
-            </div>
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
-              {PROJECTS.map((project, index) => (
-                <a
-                  key={project.name}
-                  href={project.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group relative flex min-h-[220px] flex-col border border-dashed border-neutral-300 p-5 transition-colors hover:border-cossistant-orange hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cossistant-orange dark:border-neutral-700 dark:hover:bg-neutral-900/50"
-                >
-                  <Corners />
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex min-w-0 items-center gap-3">
-                      <span className="site-mono text-[10px] tracking-[0.12em] text-cossistant-orange">
-                        0{index + 1}
-                      </span>
-                      <h3 className="truncate font-mono text-base font-bold transition-colors group-hover:text-cossistant-orange">
-                      {project.name}
-                      </h3>
-                    </div>
-                    <span className="font-mono text-xs text-cossistant-orange opacity-0 transition-opacity group-hover:opacity-100">
-                      [→]
-                    </span>
-                  </div>
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                    {project.desc}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
-                      <TagPill key={tag} tag={tag} />
-                    ))}
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
+      <section className="site-container site-section about-contributions">
+        <div className="about-section-intro"><p className="site-eyebrow">CONTRIBUTIONS / 04</p><h2 className="site-section-heading">参与，共同完善</h2><p className="site-muted">在开源社区留下的一些足迹。</p></div>
+        <div className="about-contribution-list">
+          {CONTRIBUTIONS.map((item, index) => (
+            <AnimatedContent key={item.name} delay={index * 0.08}>
+              <a href={item.url} target="_blank" rel="noreferrer" className="about-contribution"><span className="about-contribution-number site-mono">0{index + 1}</span><div><div className="about-contribution-title"><h3>{item.name}</h3><span>{item.role}</span></div><p>{item.desc}</p></div><ArrowUpRight size={18} aria-hidden="true" /></a>
+            </AnimatedContent>
+          ))}
         </div>
       </section>
 
-      {/* 参与开源项目 */}
-      <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="py-6">
-          <div className="max-w-3xl">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <Bracket>参与开源项目</Bracket>
-              <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
-                04 / CONTRIBUTIONS
-              </span>
-            </div>
-            <div className="mt-6 flex flex-col">
-              {CONTRIBUTIONS.map((item, index) => (
-                <div
-                  key={item.name}
-                  className="group flex gap-4 border-b border-dashed border-neutral-300 py-4 transition-colors last:border-b-0 hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-900/50"
-                >
-                  <span className="site-mono pt-1 text-[10px] text-cossistant-orange">
-                    0{index + 1}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="font-mono text-base font-bold transition-colors hover:text-cossistant-orange"
-                      >
-                        {item.name}
-                      </a>
-                      <span className="font-mono text-xs text-cossistant-orange">
-                        {item.role}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+      <section className="site-container site-section about-site">
+        <SpotlightCard className="about-site-panel">
+          <div><p className="site-eyebrow">COLOPHON / 05</p><h2 className="site-section-heading">这个空间，如何构成</h2><p className="site-muted">内容与代码，共同构成这里的每一页。</p></div>
+          <dl className="about-stack">{SITE_STACK.map((row) => <div key={row.label}><dt>{row.label}</dt><dd>{Array.isArray(row.value) ? row.value.map((item) => <a key={item.name} href={item.url} target="_blank" rel="noreferrer">{item.name}<ArrowUpRight size={13} aria-hidden="true" /></a>) : row.value}</dd></div>)}</dl>
+        </SpotlightCard>
       </section>
 
-      {/* 联系 */}
-      <section className="border-t border-dashed border-neutral-300 dark:border-neutral-700">
-        <div className="py-6">
-          <div className="max-w-3xl">
-            <div className="site-panel relative p-5 md:p-6">
-              <Corners />
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <Bracket>联系</Bracket>
-                <span className="site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500">
-                  05 / OPEN CHANNEL
-                </span>
-              </div>
-              <p className="mt-4 max-w-lg text-neutral-600 dark:text-neutral-400">
-                如果你也对 AI 工程、开源或几何美学感兴趣，欢迎交流。
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <TagPill tag="GitHub" href={`https://github.com/${gitConfig.user}`} />
-                <TagPill
-                  tag="Email"
-                  href={`mailto:${gitConfig.user}@users.noreply.github.com`}
-                />
-              </div>
-            </div>
+      <section className="site-container site-section about-contact">
+        <AnimatedContent>
+          <p className="site-eyebrow">OPEN CHANNEL / 06</p>
+          <h2>让下一次交流，<br /><span>成为新的起点。</span></h2>
+          <p className="site-lead">如果你也对 AI 工程、开源或几何美学感兴趣，欢迎交流。</p>
+          <div className="about-contact-actions">
+            <Magnet><StarBorder><a className="site-button" href={`https://github.com/${gitConfig.user}`} target="_blank" rel="noreferrer"><GitBranch size={17} aria-hidden="true" />GitHub<ArrowUpRight size={16} aria-hidden="true" /></a></StarBorder></Magnet>
+            <Magnet><a className="site-button-secondary" href={`mailto:${gitConfig.user}@users.noreply.github.com`}><Mail size={17} aria-hidden="true" />Email</a></Magnet>
           </div>
-        </div>
+        </AnimatedContent>
       </section>
-
-      {/* 页脚 */}
-      <section className="py-5 site-mono text-[10px] tracking-[0.14em] text-neutral-400 dark:text-neutral-500 lg:px-24">
-        <Bracket>感谢来访</Bracket>
-      </section>
-      </div>
-      </div>
     </div>
   );
 }

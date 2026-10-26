@@ -36,17 +36,11 @@ export function TagPill({
   href?: string;
   active?: boolean;
 }) {
-  const className = cn(
-    'border border-dashed border-neutral-300 px-2.5 py-1 font-mono text-xs',
-    'text-neutral-600 transition-colors hover:border-cossistant-orange hover:text-cossistant-orange',
-    'dark:border-neutral-700 dark:text-neutral-300',
-    active &&
-      'border-cossistant-orange text-cossistant-orange dark:border-cossistant-orange dark:text-cossistant-orange',
-  );
+  const className = cn('site-tag blog-tag', active && 'blog-tag--active');
 
   if (href) {
     return (
-      <Link href={href} className={className}>
+      <Link href={href} className={className} aria-current={active ? 'page' : undefined}>
         {tag}
       </Link>
     );

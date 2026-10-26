@@ -1,11 +1,13 @@
-import { HomeLayout } from 'fumadocs-ui/layouts/home';
-import { baseOptions } from '@/lib/layout.shared';
-import { notesSource } from '@/lib/source';
+import { SiteHeader } from '@/components/site/header';
+import { SiteFooter } from '@/components/site/footer';
 
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (
-    <HomeLayout tree={notesSource.getPageTree()} {...baseOptions()}>
-      {children}
-    </HomeLayout>
+    <>
+      <a href="#main-content" className="site-skip-link">跳到内容</a>
+      <SiteHeader />
+      <main id="main-content" className="site-main">{children}</main>
+      <SiteFooter />
+    </>
   );
 }
