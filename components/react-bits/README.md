@@ -38,7 +38,7 @@ The modules in `vendor/` retain the upstream implementations. `index.tsx` provid
 
 The old homepage-only approximations and Aceternity demo effects have been replaced.
 
-The Hero's morphing polyhedron is a site-specific SVG component, composed with the React Bits effects. Its shared triangular mesh continuously morphs between a faceted sphere, cube, octahedral diamond and tetrahedron. It preserves Hero pointer parallax, pauses in place with EffectsProvider, and suspends rendering offscreen or in a hidden tab. It requires no WebGL or additional dependencies.
+The Hero's morphing polyhedron is a site-specific SVG component, composed with the React Bits effects. Its shared triangular mesh continuously morphs between a faceted sphere, cube, octahedral diamond and tetrahedron. Three independently moving cloud layers follow the projected silhouette as the geometry changes. The entire scene preserves Hero pointer parallax, pauses in place with EffectsProvider, and suspends rendering offscreen or in a hidden tab. It requires no WebGL or additional dependencies.
 
 ## Interactive Hero (2026-10-26)
 

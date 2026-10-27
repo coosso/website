@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useEffects } from './effects-provider';
 import { createMorphMesh, getMorphState, morphPoint, SHAPES, type Vec3 } from './morph-geometry';
+import { contourPath, createNebulaFrame } from './nebula-geometry';
 
 const mesh = createMorphMesh();
 
@@ -35,7 +36,7 @@ function createFrame(seconds: number) {
       stroke: front ? 0.22 + light * 0.52 : 0.08,
     };
   }).sort((a, b) => a.depth - b.depth);
-  return { state, faces, points: projected };
+  return { state, faces, points: projected, nebula: createNebulaFrame(projected, seconds) };
 }
 
 const initial = createFrame(0);
@@ -45,16 +46,29 @@ export function MorphingPolyhedron() {
   const rootRef = useRef<HTMLDivElement>(null);
   const facesRef = useRef<SVGGElement>(null);
   const pointsRef = useRef<SVGGElement>(null);
+  const nebulaRef = useRef<SVGGElement>(null);
+  const hazeRef = useRef<SVGPathElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const clockRef = useRef(0);
 
   useEffect(() => {
     const root = rootRef.current, faceLayer = facesRef.current, pointLayer = pointsRef.current;
-    if (!root || !faceLayer || !pointLayer) return;
+    const nebulaLayer = nebulaRef.current, haze = hazeRef.current;
+    if (!root || !faceLayer || !pointLayer || !nebulaLayer || !haze) return;
     const polygons = new Map(Array.from(faceLayer.children).map(el => [Number(el.getAttribute('data-face')), el]));
     const dots = Array.from(pointLayer.children);
+    const clouds = Array.from(nebulaLayer.children);
     const paint = () => {
       const frame = createFrame(clockRef.current);
+      haze.setAttribute('d', contourPath(frame.nebula.layers[1].outline));
+      frame.nebula.layers.forEach((layer, i) => {
+        const cloud = clouds[i];
+        const path = contourPath(layer.outline);
+        cloud.children[0].setAttribute('d', path);
+        cloud.children[1].setAttribute('d', path);
+        cloud.children[1].setAttribute('stroke-dashoffset', String(layer.flowOffset));
+        cloud.children[2].setAttribute('transform', `translate(${layer.star.x.toFixed(2)} ${layer.star.y.toFixed(2)})`);
+      });
       for (const face of frame.faces) {
         const polygon = polygons.get(face.index)!;
         polygon.setAttribute('points', face.points);
@@ -114,11 +128,20 @@ export function MorphingPolyhedron() {
 
   return (
     <div ref={rootRef} className="home-orbit home-polyhedron" aria-hidden="true">
-      <div className="home-orbit-grid" />
-      <div className="home-orbit-halo" />
-      <div className="home-orbit-ring home-orbit-ring-one" />
-      <div className="home-orbit-ring home-orbit-ring-three" />
       <svg className="home-morph-mesh" viewBox="0 0 480 480" fill="none" focusable="false">
+        <path ref={hazeRef} className="home-nebula-haze" d={contourPath(initial.nebula.layers[1].outline)} />
+        <g ref={nebulaRef} className="home-nebula-layers">
+          {initial.nebula.layers.map((layer, i) => (
+            <g key={i} className={`home-nebula-layer home-nebula-layer-${i + 1}`}>
+              <path className="home-nebula-outline" d={contourPath(layer.outline)} />
+              <path className="home-nebula-stream" d={contourPath(layer.outline)} strokeDashoffset={layer.flowOffset} />
+              <g className="home-nebula-star" transform={`translate(${layer.star.x.toFixed(2)} ${layer.star.y.toFixed(2)})`}>
+                <circle className="home-nebula-star-halo" r="6" />
+                <circle className="home-nebula-star-core" r={i === 1 ? 2.5 : 1.8} />
+              </g>
+            </g>
+          ))}
+        </g>
         <g ref={facesRef} fill="var(--site-orange)" stroke="var(--site-orange)" strokeWidth="0.65" strokeLinejoin="round">
           {initial.faces.map(face => <polygon key={face.index} data-face={face.index} points={face.points} fillOpacity={face.fill} strokeOpacity={face.stroke} />)}
         </g>
@@ -126,10 +149,6 @@ export function MorphingPolyhedron() {
           {initial.points.filter((_, i) => i % 2 === 0).map((point, i) => <circle key={i} cx={point.x} cy={point.y} r="1.5" opacity={point.z > 0 ? 0.75 : 0.12} />)}
         </g>
       </svg>
-      <span className="home-orbit-point home-orbit-point-one" />
-      <span className="home-orbit-point home-orbit-point-two" />
-      <span className="home-orbit-cross home-orbit-cross-one">+</span>
-      <span className="home-orbit-cross home-orbit-cross-two">+</span>
       <div className="home-orbit-caption">
         <span ref={labelRef}>{SHAPES[0]}</span>
         <span>形随思变，探索无限可能</span>

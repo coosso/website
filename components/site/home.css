@@ -36,21 +36,19 @@
 .home-scroll-link:hover { color: var(--site-orange); }
 .home-hero-coordinate { font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: .15em; }
 .home-orbit { pointer-events: none; position: absolute; width: 580px; height: 580px; top: 38px; right: -95px; transform: perspective(1000px) translate3d(var(--hero-shift-x), var(--hero-shift-y), 0) rotateX(var(--hero-tilt-x)) rotateY(var(--hero-tilt-y)); transition: transform .65s cubic-bezier(.2,.7,.2,1); }
-.home-orbit-grid { position: absolute; inset: 16px; border: 1px solid var(--site-line); border-radius: 50%; background-image: linear-gradient(var(--site-line) 1px, transparent 1px), linear-gradient(90deg, var(--site-line) 1px, transparent 1px); background-size: 44px 44px; opacity: .4; mask-image: radial-gradient(circle, black 15%, transparent 68%); }
-.home-orbit-halo { position: absolute; inset: 65px; border-radius: 50%; background: radial-gradient(ellipse, color-mix(in srgb, var(--site-orange) 30%, transparent), transparent 68%); filter: blur(34px); transition: opacity .6s, scale .8s; }
-.home-hero[data-interactive='true'][data-pointer='active'] .home-orbit-halo { scale: 1.15; }
 .home-morph-mesh { position: absolute; inset: 35px; width: calc(100% - 70px); height: calc(100% - 70px); overflow: visible; filter: drop-shadow(0 0 12px color-mix(in srgb, var(--site-orange) 22%, transparent)); }
-.home-polyhedron .home-orbit-ring-one { opacity: .3; border-bottom-width: 1px; }
+.home-nebula-haze { fill: var(--site-orange); opacity: .13; filter: blur(24px); }
+.home-nebula-outline, .home-nebula-stream { fill: none; stroke: var(--site-orange); vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.home-nebula-outline { opacity: .23; stroke-width: .75px; }
+.home-nebula-stream { stroke: #ffb076; opacity: .7; stroke-width: 1px; stroke-linecap: round; stroke-dasharray: 10 55 2 80; }
+.home-nebula-layer-2 .home-nebula-outline { opacity: .16; }
+.home-nebula-layer-2 .home-nebula-stream { stroke-dasharray: 3 86 16 50; opacity: .5; }
+.home-nebula-layer-3 .home-nebula-outline { opacity: .1; }
+.home-nebula-layer-3 .home-nebula-stream { stroke-dasharray: 5 98 2 64; opacity: .36; }
+.home-nebula-star { filter: drop-shadow(0 0 7px #ff8b4d); }
+.home-nebula-star-halo { fill: #ff9a62; opacity: .2; }
+.home-nebula-star-core { fill: #ffcc9f; }
 .home-polyhedron .home-orbit-caption > span:first-child { color: var(--site-orange); }
-.home-orbit-ring { position: absolute; inset: 70px 14px; border: 1px solid color-mix(in srgb, var(--site-orange) 58%, transparent); border-radius: 50%; box-shadow: 0 0 15px color-mix(in srgb, var(--site-orange) 10%, transparent); }
-.home-orbit-ring-one { transform: rotate(-34deg) scaleY(.4); border-bottom-width: 3px; border-bottom-color: #ffac6a; }
-.home-orbit-ring-three { inset: 27px; transform: rotate(-12deg) scaleY(.81); border-color: var(--site-line); }
-.home-orbit-point { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #ffa05c; box-shadow: 0 0 21px #ff702bbb; }
-.home-orbit-point-one { left: 82px; top: 336px; }
-.home-orbit-point-two { width: 5px; height: 5px; right: 106px; top: 115px; }
-.home-orbit-cross { position: absolute; color: var(--site-muted); font: 19px ui-monospace, monospace; opacity: .65; }
-.home-orbit-cross-one { top: 83px; left: 120px; }
-.home-orbit-cross-two { bottom: 86px; right: 120px; }
 .home-orbit-caption { position: absolute; bottom: 3px; left: 120px; display: flex; flex-direction: column; gap: 9px; color: var(--site-muted); font: 9px ui-monospace, monospace; letter-spacing: .15em; }
 .home-orbit-caption span:last-child { opacity: .6; font-size: 10px; letter-spacing: .08em; }
 .home-section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 34px; }
@@ -168,8 +166,7 @@
   .home-hero-description { max-width: 330px; font-size: 13px; line-height: 1.95; }
   .home-actions { gap: 14px; margin-top: 24px; }
   .home-orbit { width: 410px; height: 410px; top: 0; right: -212px; opacity: .32; z-index: -1; }
-  .home-orbit-ring { inset: 52px 10px; }
-  .home-orbit-caption, .home-orbit-cross, .home-orbit-point { display: none; }
+  .home-orbit-caption { display: none; }
   .home-hero::after { background: linear-gradient(90deg, var(--site-bg), color-mix(in srgb, var(--site-bg) 55%, transparent) 70%, transparent); }
   .home-hero-baseline { font-size: 9px; padding-block: 17px; }
   .home-hero-coordinate { display: none; }
