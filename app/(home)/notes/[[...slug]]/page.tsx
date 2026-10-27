@@ -12,7 +12,7 @@ import { getMDXComponents } from '@/components/mdx';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { gitConfig } from '@/lib/shared';
-import { BlurText, DecryptedText, ThreadsBackground } from '@/components/react-bits';
+import { ThreadsBackground } from '@/components/react-bits';
 
 function noteTitle(page: NonNullable<ReturnType<typeof getNotePage>>) {
   return page.data.title || page.path.split('/').at(-1)?.replace(/\.mdx?$/i, '') || '笔记';
@@ -30,8 +30,8 @@ export default async function Page(props: PageProps<'/notes/[[...slug]]'>) {
     <DocsPage toc={page.data.toc} full={page.data.full} className="notes-document">
       <header className="notes-document-header">
         <div className="notes-header-threads" aria-hidden="true"><ThreadsBackground /></div>
-        <p className="site-eyebrow notes-document-eyebrow"><DecryptedText text="FIELD NOTES / 知识笔记" /></p>
-        <DocsTitle className="notes-document-title"><BlurText text={noteTitle(page)} /></DocsTitle>
+        <p className="site-eyebrow notes-document-eyebrow">FIELD NOTES / 知识笔记</p>
+        <DocsTitle className="notes-document-title">{noteTitle(page)}</DocsTitle>
         <DocsDescription className="notes-document-description">{page.data.description}</DocsDescription>
       </header>
       <div className="notes-document-actions">
