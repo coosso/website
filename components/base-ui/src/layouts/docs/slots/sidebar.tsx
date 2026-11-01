@@ -24,7 +24,7 @@ const itemVariants = cva(
   {
     variants: {
       variant: {
-        link: 'transition-colors hover:bg-fd-accent/30 text-fd-accent-foreground/80 hover:transition-none data-[active=true]:bg-fd-primary/5 data-[active=true]:text-fd-primary data-[active=true]:hover:transition-colors',
+        link: 'transition-colors hover:bg-fd-accent/30 text-fd-muted-foreground hover:transition-none data-[active=true]:bg-fd-primary/5 data-[active=true]:text-fd-primary data-[active=true]:hover:transition-colors',
         button:
           'transition-colors hover:bg-fd-accent/50 hover:transition-none',
       },
@@ -46,6 +46,8 @@ export interface SidebarProps extends ComponentProps<'aside'> {
    * @defaultValue true
    */
   collapsible?: boolean;
+  /** Render the built-in mobile drawer. Disable when a shared site drawer is used. */
+  drawer?: boolean;
 }
 
 export type SidebarProviderProps = Base.SidebarProviderProps;
@@ -56,7 +58,7 @@ export function SidebarProvider(props: SidebarProviderProps) {
   return <Base.SidebarProvider {...props} />;
 }
 
-export function Sidebar({ footer, banner, collapsible = true, components, ...rest }: SidebarProps) {
+export function Sidebar({ footer, banner, collapsible = true, drawer = true, components, ...rest }: SidebarProps) {
   const {
     menuItems,
     slots,
@@ -157,7 +159,7 @@ export function Sidebar({ footer, banner, collapsible = true, components, ...res
           </div>
         )}
       </SidebarContent>
-      <SidebarDrawer>
+      {drawer && <SidebarDrawer>
         <div className="flex flex-col gap-3 p-4 pb-2">
           <div className="flex text-fd-muted-foreground items-center gap-1.5">
             <div className="flex flex-1">
@@ -202,7 +204,7 @@ export function Sidebar({ footer, banner, collapsible = true, components, ...res
         </div>
         {viewport}
         <div className="flex flex-col border-t p-4 pt-2 empty:hidden">{footer}</div>
-      </SidebarDrawer>
+      </SidebarDrawer>}
     </>
   );
 }
@@ -392,7 +394,7 @@ function SidebarTabsDropdown({
   tabs: LayoutTab[];
 } & ComponentProps<'button'>) {
   const [open, setOpen] = useState(false);
-  const { closeOnRedirect } = useSidebar();
+  const { closeOnRedirect: closeOnRedirectRef } = useSidebar();
   const pathname = usePathname();
   const path = useTreePath();
 
@@ -401,7 +403,7 @@ function SidebarTabsDropdown({
   }, [tabs, path, pathname]);
 
   const onClick = () => {
-    closeOnRedirect.current = false;
+    closeOnRedirectRef.current = false;
     setOpen(false);
   };
 
