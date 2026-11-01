@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/components/mdx';
-import { BlurText, SpotlightCard } from '@/components/react-bits';
+import { SpotlightCard } from '@/components/react-bits';
 import { ReadingProgress } from '@/components/site/reading-progress';
 import { PostGrid } from '@/components/blog/post-grid';
 import { FeatureArt } from '@/components/blog/feature-art';
@@ -46,13 +46,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <header className="site-container blog-article-header">
         <Link href="/blog" className="blog-back-link">← 返回全部文章</Link>
         <div className="blog-article-kicker"><span className="site-eyebrow">JOURNAL / {post.data.tags?.[0] ?? '文章'}</span><time className="blog-post-meta" dateTime={post.data.date}>{formatDate(post.data.date)}</time></div>
-        <h1><BlurText text={post.data.title} /></h1>
+        <h1>{post.data.title}</h1>
         <p className="blog-article-description">{post.data.description}</p>
         <div className="blog-article-meta">{post.data.author && <div className="blog-author"><span className="blog-author-avatar" aria-hidden="true">{post.data.author.charAt(0).toUpperCase()}</span><span>{post.data.author}</span></div>}<div className="blog-article-tags">{post.data.tags?.map((tag) => <TagPill key={tag} tag={tag} href={`/blog/tag/${encodeURIComponent(tag)}`} />)}</div></div>
       </header>
       <div className="site-container"><FeatureArt variant={Math.max(0, currentIndex)} className="blog-article-banner" /></div>
       <div className="site-container blog-reading-layout">
-        <aside className="blog-reading-aside" aria-label="文章信息"><div className="site-eyebrow">READ / 正文</div><span className="blog-reading-rule" /><p>从这里，<br />继续思考。</p><Link href="/blog" className="site-link">所有文章 ↗</Link></aside>
         <div className="blog-reading-main">
           <div className="prose blog-prose"><MDX components={getMDXComponents()} /></div>
           <div className="blog-article-end"><span className="blog-article-end-mark" aria-hidden="true">✳</span><span className="site-eyebrow">感谢阅读 / THANKS FOR READING</span><div className="blog-article-tags">{post.data.tags?.map((tag) => <TagPill key={tag} tag={tag} href={`/blog/tag/${encodeURIComponent(tag)}`} />)}</div></div>

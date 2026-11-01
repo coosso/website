@@ -90,11 +90,7 @@
 .blog-article-banner .blog-art-core { width: 240px; left: calc(62% - 120px); top: 10px; }
 .blog-article-banner .blog-art-orbit { width: 60%; height: 100%; left: 32%; top: -2%; }
 .blog-article-banner .blog-art-wave { opacity: .6; }
-.blog-reading-layout { display: grid; grid-template-columns: 180px minmax(0,790px); justify-content: space-between; gap: 48px; padding-top: 64px; padding-bottom: 72px; }
-.blog-reading-aside { position: sticky; top: calc(var(--site-header-height,80px) + 30px); height: fit-content; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; padding-top: 6px; }
-.blog-reading-rule { width: 28px; height: 2px; background: var(--site-orange); }
-.blog-reading-aside p { color: var(--site-muted); font-size: .8rem; line-height: 1.9; }
-.blog-reading-aside a { font-size: .75rem; }
+.blog-reading-layout { display: grid; grid-template-columns: minmax(0,790px); justify-content: center; padding-top: 64px; padding-bottom: 72px; }
 .blog-reading-main { min-width: 0; }
 .blog-prose { width: 100%; max-width: none; font-size: 1rem; line-height: 1.95; color: var(--site-ink); }
 .blog-prose > :first-child { margin-top: 0; }
@@ -126,8 +122,6 @@
   .blog-featured-art { min-height: 370px; }
   .blog-featured-content { padding: 28px; }
   .blog-post-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .blog-reading-layout { grid-template-columns: minmax(0,790px); justify-content: center; gap: 0; }
-  .blog-reading-aside { display: none; }
 }
 @media (max-width: 600px) {
   .blog-hero-content { padding-top: 54px; padding-bottom: 28px; }
@@ -167,5 +161,3 @@
   .blog-adjacent-card a { min-height: 140px; }
   .blog-related { padding-top: 38px; padding-bottom: 48px; }
 }
-/* Official BlurText groups words; Chinese sentences need character wrapping. */
-.blog-page .site-blur-text > span:not(.sr-only) { display: contents; }

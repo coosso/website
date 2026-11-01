@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { GitBranch, Menu, Moon, Pause, Play, Search, Sun, X } from 'lucide-react';
+import { GitBranch, Menu, Moon, Search, Sun, X } from 'lucide-react';
 import { useState } from 'react';
 import { useSearchContext } from 'fumadocs-ui/contexts/search';
 import { Magnet } from '@/components/react-bits';
@@ -21,7 +21,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
   const { setOpenSearch } = useSearchContext();
-  const { hydrated, disabled, reduced, toggle } = useEffects();
+  const { hydrated } = useEffects();
   const [menuPath, setMenuPath] = useState<string | null>(null);
   const open = menuPath === pathname;
   const active = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
@@ -40,7 +40,6 @@ export function SiteHeader() {
         <div className="site-header-actions">
           <button type="button" className="site-icon-button" aria-label="搜索文章与笔记" onClick={() => setOpenSearch(true)}><Search size={18} /></button>
           <button type="button" className="site-icon-button" aria-label={dark ? '切换浅色主题' : '切换深色主题'} onClick={() => setTheme(dark ? 'light' : 'dark')}>{dark ? <Sun size={18} /> : <Moon size={18} />}</button>
-          <button type="button" className="site-icon-button site-motion-toggle" aria-label={disabled ? reduced ? '系统已启用减少动态效果' : '播放动效' : '暂停动效'} aria-pressed={disabled} disabled={reduced} onClick={toggle}>{disabled ? <Play size={16} /> : <Pause size={16} />}</button>
           <a href={`https://github.com/${gitConfig.user}`} target="_blank" rel="noreferrer" className="site-icon-button site-header-github" aria-label="GitHub（新窗口）"><GitBranch size={18} /></a>
           <button type="button" className="site-icon-button site-menu-toggle" aria-label={open ? '关闭导航' : '打开导航'} aria-expanded={open} aria-controls="site-mobile-nav" onClick={() => setMenuPath(open ? null : pathname)}>{open ? <X size={20} /> : <Menu size={20} />}</button>
         </div>
