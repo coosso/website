@@ -293,7 +293,7 @@ export function SearchDialogOverlay({
       {...props}
       className={(s) =>
         cn(
-          'fixed inset-0 z-50 backdrop-blur-xs bg-fd-overlay data-open:animate-fd-fade-in data-closed:animate-fd-fade-out',
+          'fixed inset-0 z-[70] backdrop-blur-xs bg-fd-overlay data-open:animate-fd-fade-in data-closed:animate-fd-fade-out',
           typeof className === 'function' ? className(s) : className,
         )
       }
@@ -328,7 +328,7 @@ export function SearchDialogContent({
         }}
         className={(s) =>
           cn(
-            'fixed left-1/2 top-4 md:top-[calc(50%-250px)] z-50 w-[calc(100%-1rem)] max-w-screen-sm -translate-x-1/2 rounded-sm border border-dashed bg-fd-popover text-fd-popover-foreground shadow-2xl overflow-hidden data-closed:animate-fd-dialog-out data-open:animate-fd-dialog-in focus-visible:outline-none',
+            'fixed left-1/2 top-4 md:top-[calc(50%-250px)] z-[71] w-[calc(100%-1rem)] max-w-screen-sm -translate-x-1/2 rounded-sm border border-dashed bg-fd-popover text-fd-popover-foreground shadow-2xl overflow-hidden data-closed:animate-fd-dialog-out data-open:animate-fd-dialog-in focus-visible:outline-none',
             '*:border-b *:has-[+:last-child[data-empty=true]]:border-b-0 *:data-[empty=true]:border-b-0 *:last:border-b-0',
             typeof className === 'function' ? className(s) : className,
           )

@@ -147,6 +147,7 @@ figure.shiki pre { scrollbar-width: thin; }
   .site-section { padding-block: 64px; }
   .site-header-inner { width: calc(100% - 32px); gap: 10px; }
   .site-desktop-nav { display: none; }
+  .site-motion-toggle { display: none; }
   .site-menu-toggle { display: inline-flex; }
   .site-brand { gap: 8px; }
   .site-brand-symbol { width: 27px; font-size: 31px; }
