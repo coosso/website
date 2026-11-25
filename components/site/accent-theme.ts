@@ -15,17 +15,17 @@ type AccentTheme = {
 };
 
 export const accentThemes = {
-  orange: {
-    label: '琥珀橙',
-    light: { bg: '#f6f4f0', surface: '#fffefa', raised: '#ece9e3', ink: '#25231f', muted: '#605c54', accent: '#a33b0c' },
-    dark: { bg: '#0c0d0e', surface: '#141516', raised: '#1d1e20', ink: '#f0ede6', muted: '#aaa7a2', accent: '#ff8549' },
-    art: { base: '#201613', shade: '#782e18', vivid: '#ff783b', tint: '#ffb27c', gleam: '#ffe3c6' },
-  },
   blue: {
     label: '钴蓝',
     light: { bg: '#f1f5fa', surface: '#fbfdff', raised: '#e5ecf5', ink: '#192535', muted: '#4e5e72', accent: '#2144c2' },
     dark: { bg: '#0d121d', surface: '#141c2a', raised: '#202a3a', ink: '#edf3ff', muted: '#a7b6cb', accent: '#93b5ff' },
     art: { base: '#11192d', shade: '#294488', vivid: '#6c95ff', tint: '#a3beff', gleam: '#e0ebff' },
+  },
+  orange: {
+    label: '琥珀橙',
+    light: { bg: '#f6f4f0', surface: '#fffefa', raised: '#ece9e3', ink: '#25231f', muted: '#605c54', accent: '#a33b0c' },
+    dark: { bg: '#0c0d0e', surface: '#141516', raised: '#1d1e20', ink: '#f0ede6', muted: '#aaa7a2', accent: '#ff8549' },
+    art: { base: '#201613', shade: '#782e18', vivid: '#ff783b', tint: '#ffb27c', gleam: '#ffe3c6' },
   },
   green: {
     label: '翡翠绿',

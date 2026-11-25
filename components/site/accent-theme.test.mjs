@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { runInNewContext } from 'node:vm';
-import { accentThemeScript, accentThemeStyles, accentThemes, parseAccentTheme } from './accent-theme.ts';
+import { accentThemeIds, accentThemeScript, accentThemeStyles, accentThemes, parseAccentTheme } from './accent-theme.ts';
 
 function rgb(hex) {
   return hex.slice(1).match(/../g).map(channel => parseInt(channel, 16) / 255);
@@ -18,7 +18,7 @@ function contrast(a, b) {
 }
 
 test('five accent themes expose accessible text and accents in both modes', () => {
-  assert.deepEqual(Object.keys(accentThemes), ['orange', 'blue', 'green', 'violet', 'rose']);
+  assert.deepEqual(accentThemeIds, ['blue', 'orange', 'green', 'violet', 'rose']);
   for (const [id, theme] of Object.entries(accentThemes)) {
     for (const color of [theme.art.vivid, theme.art.tint]) {
       assert.ok(contrast(rgb(color), rgb(theme.art.base)) >= 4.5, `${id}: artwork labels on dark illustrations`);
