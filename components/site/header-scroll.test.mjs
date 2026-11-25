@@ -9,20 +9,19 @@ test('scrolling changes the navigation only on the home and about pages', () => 
   for (const path of ['/blog', '/blog/example', '/notes', '/notes/example', '/aboutness']) assert.equal(headerScroll.isHeaderScrollEnabled(path), false, path);
 });
 
-test('the navigation stays expanded near the top and compacts after downward scrolling', () => {
+test('downward scrolling compacts immediately at the top', () => {
   let state = initialHeaderScroll(0);
-  state = updateHeaderScroll(state, 90);
   assert.equal(state.compact, false);
-  state = updateHeaderScroll(state, 110);
+  state = updateHeaderScroll(state, 1);
   assert.equal(state.compact, true);
 });
 
-test('small reversals do not make the navigation flicker', () => {
-  let state = initialHeaderScroll(300);
-  for (const y of [296, 299, 295, 298]) state = updateHeaderScroll(state, y);
-  assert.equal(state.compact, true);
-  state = updateHeaderScroll(state, 280);
+test('small direction changes switch the navigation immediately', () => {
+  let state = updateHeaderScroll(initialHeaderScroll(300), 299);
   assert.equal(state.compact, false);
+  assert.equal(updateHeaderScroll(state, 299).compact, false);
+  state = updateHeaderScroll(state, 300);
+  assert.equal(state.compact, true);
 });
 
 test('upward scroll expands and the top always resets the navigation', () => {
@@ -36,9 +35,7 @@ test('upward scroll expands and the top always resets the navigation', () => {
   assert.equal(state.compact, false);
 });
 
-test('fractional scroll movement accumulates instead of being ignored', () => {
-  let state = initialHeaderScroll(100);
-  state.compact = false;
-  for (let i = 1; i <= 40; i++) state = updateHeaderScroll(state, 100 + i * 0.5);
-  assert.equal(state.compact, true);
+test('fractional movement and restored positions work near the top', () => {
+  assert.equal(updateHeaderScroll(initialHeaderScroll(0), 0.5).compact, true);
+  assert.equal(initialHeaderScroll(0.5).compact, true);
 });
