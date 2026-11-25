@@ -32,7 +32,7 @@ export function AccentThemePicker() {
             const Icon = accentIcons[id];
             return (
               <DropdownMenuRadioItem key={id} value={id} closeOnClick
-                className="min-h-16 flex-col justify-center gap-1.5 px-0.5 pe-0.5 py-2 text-xs data-checked:bg-fd-accent [&>[data-slot=dropdown-menu-radio-item-indicator]]:end-0.5 [&>[data-slot=dropdown-menu-radio-item-indicator]]:top-0.5">
+                className="min-h-16 flex-col justify-center gap-1.5 px-0.5 pe-0.5 py-2 text-xs data-checked:bg-fd-accent [&>[data-slot=dropdown-menu-radio-item-indicator]]:hidden">
                 <Icon size={19} color={theme[mode].accent} aria-hidden="true" />
                 <span className="whitespace-nowrap">{theme.label}</span>
               </DropdownMenuRadioItem>
