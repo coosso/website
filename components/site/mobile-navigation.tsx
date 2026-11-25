@@ -8,7 +8,6 @@ import type * as PageTree from 'fumadocs-core/page-tree';
 import { TreeContextProvider } from 'fumadocs-ui/contexts/tree';
 import { SidebarDrawerContent, SidebarDrawerOverlay, SidebarTrigger, SidebarViewport, useSidebar } from 'fumadocs-ui/components/sidebar/base';
 import { SidebarPageTree } from 'fumadocs-ui/layouts/docs/slots/sidebar';
-import { AccentThemeOptions } from './accent-theme-picker';
 
 type NavLink = { href: string; label: string; code: string };
 
@@ -95,7 +94,6 @@ export function MobileNavigation({ tree, links, triggerRef, dark, onToggleTheme,
               aria-current={(link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)) ? 'page' : undefined}
               onClick={follow}><span className="site-nav-code">{link.code}</span>{link.label}</Link>)}
           </nav>
-          <AccentThemeOptions />
           {(pathname === '/notes' || pathname.startsWith('/notes/')) && (
             <section className="site-mobile-sheet-notes" aria-label="笔记目录" onClick={followNote}>
               <TreeContextProvider tree={tree}><SidebarPageTree /></TreeContextProvider>

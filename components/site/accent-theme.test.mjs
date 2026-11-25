@@ -37,14 +37,14 @@ test('five accent themes expose accessible text and accents in both modes', () =
   }
 });
 
-test('the first render restores a valid accent and falls back to orange when storage is unavailable', () => {
+test('the first render restores a valid accent and falls back to cobalt blue when storage is unavailable', () => {
   for (const stored of [...Object.keys(accentThemes), null, 'unknown', 'toString']) {
     const dataset = {};
     runInNewContext(accentThemeScript, {
       document: { documentElement: { dataset } },
       localStorage: { getItem: () => stored },
     });
-    assert.equal(dataset.accent, Object.hasOwn(accentThemes, stored) ? stored : 'orange');
+    assert.equal(dataset.accent, Object.hasOwn(accentThemes, stored) ? stored : 'blue');
     assert.equal(dataset.accent, parseAccentTheme(stored));
   }
   const dataset = {};
@@ -52,5 +52,10 @@ test('the first render restores a valid accent and falls back to orange when sto
     document: { documentElement: { dataset } },
     localStorage: { getItem() { throw new Error('storage blocked'); } },
   });
-  assert.equal(dataset.accent, 'orange');
+  assert.equal(dataset.accent, 'blue');
+});
+
+test('the pre-hydration stylesheet uses cobalt blue in both modes', () => {
+  assert.match(accentThemeStyles, /^:root\{[^}]*--site-accent:#2144c2[};]/m);
+  assert.match(accentThemeStyles, /^:root\.dark\{[^}]*--site-accent:#93b5ff[};]/m);
 });

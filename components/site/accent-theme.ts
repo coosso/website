@@ -48,7 +48,7 @@ export const accentThemes = {
 } as const satisfies Record<string, AccentTheme>;
 
 export type AccentThemeId = keyof typeof accentThemes;
-export const defaultAccentTheme = 'orange';
+export const defaultAccentTheme = 'blue';
 export const accentThemeStorageKey = 'space-accent-theme';
 export const accentThemeIds = Object.keys(accentThemes) as AccentThemeId[];
 
