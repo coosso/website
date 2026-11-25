@@ -6,6 +6,7 @@ import { useEffect, useRef, useSyncExternalStore, type PointerEvent, type ReactN
 import { AuroraBackground } from '@/components/react-bits';
 import ClickSpark, { type ClickSparkHandle } from '@/components/react-bits/vendor/ClickSpark';
 import { useEffects } from './effects-provider';
+import { useAccentTheme } from './use-accent-theme';
 
 const Particles = dynamic(() => import('@/components/react-bits/vendor/Particles'), { ssr: false });
 const finePointerQuery = '(hover: hover) and (pointer: fine)';
@@ -23,6 +24,8 @@ const dustPositions = [[8, 21], [18, 78], [31, 14], [39, 65], [48, 37], [54, 82]
 export function HeroScene({ children }: { children: ReactNode }) {
   const { hydrated, disabled } = useEffects();
   const { resolvedTheme } = useTheme();
+  const { theme } = useAccentTheme();
+  const effectColors = [theme.art.vivid, theme.art.tint, theme.art.gleam];
   const finePointer = useSyncExternalStore(subscribePointer, getFinePointer, getServerPointer);
   const active = hydrated && !disabled;
   const interactive = active && finePointer;
@@ -92,7 +95,7 @@ export function HeroScene({ children }: { children: ReactNode }) {
       <div className="home-hero-nebula" aria-hidden="true" />
       <div className="home-hero-particles" aria-hidden="true">
         {active && <Particles particleCount={finePointer ? 260 : 80} particleSpread={8} cameraDistance={22}
-          particleColors={['#ff8549', '#ffbe82', '#f1e7d7']} particleBaseSize={finePointer ? 75 : 55}
+          particleColors={effectColors} particleBaseSize={finePointer ? 75 : 55}
           speed={0.055} pixelRatio={1} glow={0.65} twinkle={0.35} depthOfField={0.25}
           moveParticlesOnHover={interactive} hoverEffect="repel" hoverRadius={155} particleHoverFactor={1.6}
           clickBurst={interactive} intro={false} opacity={0.78} lightMode={resolvedTheme === 'light'} />}
@@ -103,7 +106,7 @@ export function HeroScene({ children }: { children: ReactNode }) {
       <div className="home-hero-pointer-glow" aria-hidden="true" />
       <div className="home-hero-cursor" aria-hidden="true"><span /></div>
       <ClickSpark ref={sparkRef} disabled={!interactive} className="home-hero-sparks"
-        sparkColor={['#ff8549', '#ffd7a1', '#fff4df']} sparkCount={12} sparkSize={18}
+        sparkColor={effectColors} sparkCount={12} sparkSize={18}
         sparkRadius={90} duration={680} shape="streak" glow={0.85} ring />
       {children}
     </section>

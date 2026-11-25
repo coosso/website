@@ -3,6 +3,7 @@ import './global.css';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import { EffectsProvider } from '@/components/site/effects-provider';
+import { accentThemeScript, accentThemeStyles } from '@/components/site/accent-theme';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -19,6 +20,10 @@ export const metadata: Metadata = {
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="zh-CN" className={inter.className} suppressHydrationWarning>
+      <head>
+        <style>{accentThemeStyles}</style>
+        <script dangerouslySetInnerHTML={{ __html: accentThemeScript }} />
+      </head>
       <body className="flex flex-col min-h-screen">
         <RootProvider theme={{ defaultTheme: 'dark' }}>
           <EffectsProvider>{children}</EffectsProvider>

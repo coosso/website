@@ -27,7 +27,7 @@ export default function HomePage() {
             </p>
             <h1 id="home-title" className="home-title">
               <BlurText text="可塑性" />
-              <span className="home-title-orange"><BlurText text="空间。" /></span>
+              <span className="home-title-accent"><BlurText text="空间。" /></span>
             </h1>
             <div className="home-focus">
               <span className="home-focus-label">正在探索</span>

@@ -8,7 +8,7 @@ Official source: [DavidHDev/react-bits](https://github.com/DavidHDev/react-bits)
 | --- | --- | --- |
 | Aurora | Backgrounds/Aurora | Home hero |
 | Particles | Backgrounds/Particles | Hero pointer repulsion and click waves |
-| ClickSpark | Animations/ClickSpark | Hero electric-orange click bursts |
+| ClickSpark | Animations/ClickSpark | Hero click bursts in the selected accent palette |
 | Threads | Backgrounds/Threads | Blog, profile and note headers |
 | SpotlightCard | Components/SpotlightCard | Bento, articles, projects and contact |
 | TiltedCard | Components/TiltedCard | Identity and project cards |
@@ -28,7 +28,7 @@ The modules in `vendor/` retain the upstream implementations. `index.tsx` provid
 ## Site integration
 
 - Pages and content data stay in Server Components. Server output includes real text, totals and links, including when JavaScript is disabled.
-- WebGL backgrounds are loaded in browser-only chunks, use a gradient fallback and are removed when motion is disabled. Aurora renders at pixel ratio 1; its canvas is tinted to the site's orange palette.
+- WebGL backgrounds are loaded in browser-only chunks, use a gradient fallback and are removed when motion is disabled. Aurora renders at pixel ratio 1 and takes its colors from the selected accent palette.
 - All effects share `EffectsProvider`. Pausing replaces continuous effects with static content and preserves the preference across navigation and reloads. OS reduced motion takes priority.
 - Theme-aware wrappers supply concrete colors to ShinyText's canvas parser. Decorative layers are hidden from assistive technology and do not intercept pointer input.
 - Native TiltedCard faces participate in normal layout for variable-height text cards; the site does not use its image or flip APIs.

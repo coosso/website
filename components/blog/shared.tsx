@@ -9,7 +9,7 @@ export function formatDate(iso: string): string {
   return `${y}.${m}.${d}`;
 }
 
-/** 站点的签名式标注：橙色 `[ 内容 ]`。 */
+/** 使用站点主题色的 `[ 内容 ]` 标注。 */
 export function Bracket({
   children,
   className,
@@ -49,7 +49,7 @@ export function TagPill({
   return <span className={className}>{tag}</span>;
 }
 
-/** 四角的橙色直角括号，用于给卡片加上几何边框。 */
+/** 使用主题色的四角直角括号。 */
 export function Corners({ className }: { className?: string }) {
   const base = 'pointer-events-none absolute size-4 border-cossistant-orange';
   return (

@@ -13,6 +13,7 @@ import { useEffects } from './effects-provider';
 import { gitConfig } from '@/lib/shared';
 import { initialHeaderScroll, isHeaderScrollEnabled, updateHeaderScroll } from './header-scroll';
 import { MobileNavigation } from './mobile-navigation';
+import { AccentThemePicker } from './accent-theme-picker';
 
 const links = [
   { href: '/', label: '首页', code: '01' },
@@ -80,6 +81,7 @@ function HeaderContent({ tree }: { tree: PageTree.Root }) {
           </nav>
           <div className="site-header-actions">
             <button type="button" className="site-icon-button" aria-label="搜索文章与笔记" onClick={() => { setOpen(false); setOpenSearch(true); }}><Search size={18} /></button>
+            <AccentThemePicker key={desktop ? 'desktop' : 'mobile'} />
             <button type="button" className="site-icon-button" aria-label={dark ? '切换浅色主题' : '切换深色主题'} onClick={() => setTheme(dark ? 'light' : 'dark')}>{dark ? <Sun size={18} /> : <Moon size={18} />}</button>
             <a href={`https://github.com/${gitConfig.user}`} target="_blank" rel="noreferrer" className="site-icon-button site-header-github" aria-label="GitHub（新窗口）"><GitBranch size={18} /></a>
             <SidebarTrigger ref={menuButtonRef} className="site-icon-button site-menu-toggle" aria-label={open ? '关闭导航' : '打开导航'}>{open ? <X size={20} /> : <Menu size={20} />}</SidebarTrigger>

@@ -142,10 +142,10 @@ export function MorphingPolyhedron() {
             </g>
           ))}
         </g>
-        <g ref={facesRef} fill="var(--site-orange)" stroke="var(--site-orange)" strokeWidth="0.65" strokeLinejoin="round">
+        <g ref={facesRef} fill="var(--site-accent)" stroke="var(--site-accent)" strokeWidth="0.65" strokeLinejoin="round">
           {initial.faces.map(face => <polygon key={face.index} data-face={face.index} points={face.points} fillOpacity={face.fill} strokeOpacity={face.stroke} />)}
         </g>
-        <g ref={pointsRef} fill="var(--site-orange)">
+        <g ref={pointsRef} fill="var(--site-accent)">
           {initial.points.filter((_, i) => i % 2 === 0).map((point, i) => <circle key={i} cx={point.x} cy={point.y} r="1.5" opacity={point.z > 0 ? 0.75 : 0.12} />)}
         </g>
       </svg>
